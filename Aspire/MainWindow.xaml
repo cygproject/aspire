@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Aspire"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Aspire" Height="450" Width="800">
     <Grid>
-        
+        <Menu Height="20" VerticalAlignment="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit" Click="MenuItem_Exit_Click" />
+            </MenuItem>
+            <MenuItem Header="Settings">
+                <MenuItem Header="Port" Click="MenuItem_Settings_Click" />
+            </MenuItem>
+            <MenuItem Header="View">
+            </MenuItem>
+            <MenuItem Header="Help">
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>
