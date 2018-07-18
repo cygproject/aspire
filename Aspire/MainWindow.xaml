@@ -12,6 +12,7 @@
                 <MenuItem Header="Exit" Click="MenuItem_Exit_Click" />
             </MenuItem>
             <MenuItem Header="Settings">
+                <MenuItem Header="Port" Click="MenuItem_Settings_Click" />
             </MenuItem>
             <MenuItem Header="View">
             </MenuItem>
