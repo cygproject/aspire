@@ -1,0 +1,52 @@
+﻿<Window x:Class="Aspire.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        Loaded="Window_Loaded"
+        WindowStyle="ToolWindow"
+        Title="設定" Height="300" Width="300">
+
+    <Window.Resources>
+        <system:Double x:Key="CtlMargin">4.0</system:Double>
+    </Window.Resources>
+
+    <Grid>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">ボート</TextBlock>
+            <ComboBox Grid.Row="0" Grid.Column="1" Name="cmbPortNo" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">ボーレート</TextBlock>
+            <ComboBox Grid.Row="1" Grid.Column="1" Name="cmbRate" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">データ</TextBlock>
+            <ComboBox Grid.Row="2" Grid.Column="1" Name="cmbData" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">パリティ</TextBlock>
+            <ComboBox Grid.Row="3" Grid.Column="1" Name="cmbParity" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">ストップ</TextBlock>
+            <ComboBox Grid.Row="4" Grid.Column="1" Name="cmbStopBit" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">フロー制御</TextBlock>
+            <ComboBox Grid.Row="5" Grid.Column="1" Name="cmbFlowCtl" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
+        </Grid>
+
+        <DockPanel VerticalAlignment="Bottom" Margin="10">
+            <Button Width="70" Click="OkButton_Click">OK</Button>
+            <Button Width="70" HorizontalAlignment="Right" Click="CancelButton_Click">Cancel</Button>
+        </DockPanel>
+    </Grid>
+</Window>
