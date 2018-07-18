@@ -9,6 +9,7 @@
     <Grid>
         <Menu Height="20" VerticalAlignment="Top">
             <MenuItem Header="File">
+                <MenuItem Header="Exit" Click="MenuItem_Exit_Click" />
             </MenuItem>
             <MenuItem Header="Settings">
             </MenuItem>
