@@ -53,6 +53,13 @@ namespace Aspire
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            var config = SettingsData.Load();
+            cmbPortNo.Text = config.SerialPortSettingsData.PortNum;
+            cmbRate.Text = config.SerialPortSettingsData.BaudRate.ToString();
+            cmbData.Text = config.SerialPortSettingsData.Databit.ToString();
+            cmbParity.Text = config.SerialPortSettingsData.Parity.ToString();
+            cmbStopBit.Text = config.SerialPortSettingsData.StopBit.ToString();
+            cmbFlowCtl.Text = config.SerialPortSettingsData.FlowControl.ToString();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -63,6 +70,15 @@ namespace Aspire
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
+            var config = SettingsData.Load();
+            config.SerialPortSettingsData.PortNum = cmbPortNo.Text;
+            config.SerialPortSettingsData.BaudRate = int.Parse(cmbRate.Text);
+            config.SerialPortSettingsData.Databit = int.Parse(cmbData.Text);
+            config.SerialPortSettingsData.Parity = (Parity)Enum.Parse(typeof(Parity), cmbParity.Text);
+            config.SerialPortSettingsData.StopBit = (StopBits)Enum.Parse(typeof(StopBits), cmbStopBit.Text);
+            config.SerialPortSettingsData.FlowControl = (Handshake)Enum.Parse(typeof(Handshake), cmbFlowCtl.Text);
+            config.Save();
+
             IsCancel = false;
             this.Close();
         }
