@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +21,63 @@ namespace Aspire
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// シリアルポート | Serial port
+        /// </summary>
+        private SerialPort serialPort = null;
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            OpenSerialPort();
+        }
+
+        /// <summary>
+        /// Opens a new serial port connection.
+        /// </summary>
+        private void OpenSerialPort()
+        {
+            var config = SettingsData.Load();
+            serialPort = new SerialPort(config.SerialPortSettingsData.PortNum);
+            serialPort.BaudRate = config.SerialPortSettingsData.BaudRate;
+            serialPort.Parity = config.SerialPortSettingsData.Parity;
+            serialPort.StopBits = config.SerialPortSettingsData.StopBit;
+            serialPort.DataBits = config.SerialPortSettingsData.Databit;
+            serialPort.Handshake = config.SerialPortSettingsData.FlowControl;
+
+            try
+            {
+                serialPort.Open();
+            }
+            catch (Exception e)
+            {
+                var asmatt = (System.Reflection.AssemblyTitleAttribute)Attribute.GetCustomAttribute(System.Reflection.Assembly.GetExecutingAssembly(),
+                                                                                                    typeof(System.Reflection.AssemblyTitleAttribute));
+                MessageBox.Show(e.Message, asmatt.Title, MessageBoxButton.OK, MessageBoxImage.Error);
+
+                serialPort.Dispose();
+                serialPort = null;
+            }
+        }
+
+        /// <summary>
+        /// Closes the serial port connection.
+        /// </summary>
+        private void CloseSerialPort()
+        {
+            if (serialPort != null)
+            {
+                serialPort.Close();
+                serialPort = null;
+            }
         }
 
         private void MenuItem_Exit_Click(object sender, RoutedEventArgs e)
         {
+            CloseSerialPort();
+
             Application.Current.Shutdown();
         }
 
