@@ -90,6 +90,7 @@ namespace Aspire
         private void MenuItem_Settings_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow sw = new SettingsWindow();
+            sw.Owner = this;
             sw.ShowDialog();
         }
 

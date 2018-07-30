@@ -53,6 +53,13 @@ namespace Aspire
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+#if false
+             Center window with respect to MainWindow
+            Application curApp = Application.Current;
+            Window mainWindow = curApp.MainWindow;
+            this.Left = mainWindow.Left + (mainWindow.Width - this.ActualWidth) / 2;
+            this.Top = mainWindow.Top + (mainWindow.Height - this.ActualHeight) / 
+#endif
             var config = SettingsData.Load();
             cmbPortNo.Text = config.SerialPortSettingsData.PortNum;
             cmbRate.Text = config.SerialPortSettingsData.BaudRate.ToString();

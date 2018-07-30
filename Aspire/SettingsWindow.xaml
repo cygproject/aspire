@@ -4,6 +4,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         Loaded="Window_Loaded"
         WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterOwner"
         Title="設定" Height="300" Width="300">
 
     <Window.Resources>
