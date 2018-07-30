@@ -20,5 +20,13 @@
             <MenuItem Header="Help">
             </MenuItem>
         </Menu>
+
+        <Button Content="Bank Switching" HorizontalAlignment="Left" Margin="30,83,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_1"/>
+        <Button Content="LD OFF Start" HorizontalAlignment="Left" Margin="30,120,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_2"/>
+        <Button Content="LD OFF End" HorizontalAlignment="Left" Margin="30,160,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_3"/>
+        <Button Content="BANK0 H (Max)" HorizontalAlignment="Left" Margin="30,200,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_4"/>
+        <Button Content="BANK0 L (Min)" HorizontalAlignment="Left" Margin="30,240,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_5"/>
+        <Button Content="Measure Value" HorizontalAlignment="Left" Margin="30,280,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_6"/>
+        <Button Content="Software Version" HorizontalAlignment="Left" Margin="30,320,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_7"/>
     </Grid>
 </Window>

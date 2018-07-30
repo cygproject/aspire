@@ -26,6 +26,11 @@ namespace Aspire
         /// </summary>
         private SerialPort serialPort = null;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private ZX2_SF11 sensor = null;
+        
 
         public MainWindow()
         {
@@ -86,5 +91,63 @@ namespace Aspire
             SettingsWindow sw = new SettingsWindow();
             sw.ShowDialog();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            string command;
+
+            sensor = new ZX2_SF11();
+            command = "SR,01," + sensor.BankSwitching + Environment.NewLine;
+            serialPort.Write(command);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            string command;
+            sensor = new ZX2_SF11();
+            command = "SR,01," + sensor.LDOffStart + Environment.NewLine;
+            serialPort.Write(command);
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            string command;
+            sensor = new ZX2_SF11();
+            command = "SR,01," + sensor.LDOffEnd + Environment.NewLine;
+            serialPort.Write(command);
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            string command;
+            sensor = new ZX2_SF11();
+            command = "SR,01," + sensor.Bank0HThreshold + Environment.NewLine;
+            serialPort.Write(command);
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            string command;
+            sensor = new ZX2_SF11();
+            command = "SR,01," + sensor.Bank0LThreshold + Environment.NewLine;
+            serialPort.Write(command);
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            string command;
+            sensor = new ZX2_SF11();
+            command = "SR,01," + sensor.MeasuredValue + Environment.NewLine;
+            serialPort.Write(command);
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            string command;
+            sensor = new ZX2_SF11();
+            command = "SR,01," + sensor.SoftwareVersion + Environment.NewLine;
+            serialPort.Write(command);
+        }
+
     }
 }
