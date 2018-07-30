@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -98,6 +99,7 @@ namespace Aspire
 
             sensor = new ZX2_SF11();
             command = "SR,01," + sensor.BankSwitching + Environment.NewLine;
+            Debug.Print(command);
             serialPort.Write(command);
         }
 
@@ -106,6 +108,7 @@ namespace Aspire
             string command;
             sensor = new ZX2_SF11();
             command = "SR,01," + sensor.LDOffStart + Environment.NewLine;
+            Debug.Print(command);
             serialPort.Write(command);
         }
 
@@ -114,6 +117,7 @@ namespace Aspire
             string command;
             sensor = new ZX2_SF11();
             command = "SR,01," + sensor.LDOffEnd + Environment.NewLine;
+            Debug.Print(command);
             serialPort.Write(command);
         }
 
@@ -122,6 +126,7 @@ namespace Aspire
             string command;
             sensor = new ZX2_SF11();
             command = "SR,01," + sensor.Bank0HThreshold + Environment.NewLine;
+            Debug.Print(command);
             serialPort.Write(command);
         }
 
@@ -130,6 +135,7 @@ namespace Aspire
             string command;
             sensor = new ZX2_SF11();
             command = "SR,01," + sensor.Bank0LThreshold + Environment.NewLine;
+            Debug.Print(command);
             serialPort.Write(command);
         }
 
@@ -138,6 +144,7 @@ namespace Aspire
             string command;
             sensor = new ZX2_SF11();
             command = "SR,01," + sensor.MeasuredValue + Environment.NewLine;
+            Debug.Print(command);
             serialPort.Write(command);
         }
 
@@ -146,6 +153,7 @@ namespace Aspire
             string command;
             sensor = new ZX2_SF11();
             command = "SR,01," + sensor.SoftwareVersion + Environment.NewLine;
+            Debug.Print(command);
             serialPort.Write(command);
         }
 
