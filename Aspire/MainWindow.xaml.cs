@@ -21,20 +21,6 @@ namespace Aspire
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string DATA_NO_107_BANK_SWITCHING = "107";
-        private const string DATA_NO_400_LD_OFF_START = "400";
-        private const string DATA_NO_401_LD_OFF_END = "401";
-        private const string DATA_NO_132_BANK0_H_THRESHOLD = "132";
-        private const string DATA_NO_133_BANK0_L_THRESHOLD = "133";
-        private const string DATA_NO_166_BANK1_H_THRESHOLD = "166";
-        private const string DATA_NO_167_BANK1_L_THRESHOLD = "167";
-        private const string DATA_NO_196_BANK2_H_THRESHOLD = "196";
-        private const string DATA_NO_197_BANK2_L_THRESHOLD = "197";
-        private const string DATA_NO_228_BANK3_H_THRESHOLD = "228";
-        private const string DATA_NO_229_BANK3_L_THRESHOLD = "229";
-        private const string DATA_NO_519_MEASURED_VALUE = "519";
-        private const string DATA_NO_580_SOFTWARE_VERSION = "580";
-
         /// <summary>
         /// シリアルポート | Serial port
         /// </summary>
