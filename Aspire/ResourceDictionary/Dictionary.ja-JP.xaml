@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Aspire"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="ComSettings">シリアルポート設定</system:String>
+    <system:String x:Key="ComPort">ポート</system:String>
+    <system:String x:Key="ComBaudRate">ボーレート</system:String>
+    <system:String x:Key="ComData">データ</system:String>
+    <system:String x:Key="ComParity">パリティー</system:String>
+    <system:String x:Key="ComStop">ストップ</system:String>
+    <system:String x:Key="ComFlowControl">フロー制御</system:String>
+    <system:String x:Key="Save">保存</system:String>
+    <system:String x:Key="Cancel">キャンセル</system:String>
+</ResourceDictionary>
