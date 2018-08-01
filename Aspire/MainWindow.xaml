@@ -8,7 +8,26 @@
         WindowStartupLocation="CenterScreen"
         Title="Aspire" Height="450" Width="800">
     <Grid>
-        <Menu Height="20" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Menu Grid.ColumnSpan="4" Height="20" VerticalAlignment="Top">
             <MenuItem Header="File">
                 <MenuItem Header="Exit" Click="MenuItem_Exit_Click" />
             </MenuItem>
@@ -20,13 +39,31 @@
             <MenuItem Header="Help">
             </MenuItem>
         </Menu>
+        
+        <Button Grid.Column="0" Grid.Row="1" Content="Bank Switching" Margin="10" Width="120" Click="Button_Click_1"/>
+        <Button Grid.Column="0" Grid.Row="2" Content="LD OFF Start" Margin="10" Width="120" Click="Button_Click_2"/>
+        <Button Grid.Column="0" Grid.Row="3" Content="LD OFF End" Margin="10" Width="120" Click="Button_Click_3"/>
+        <Button Grid.Column="0" Grid.Row="4" Content="BANK0 H (Max)" Margin="10" Width="120" Click="Button_Click_4"/>
+        <Button Grid.Column="0" Grid.Row="5" Content="BANK0 L (Min)" Margin="10" Width="120" Click="Button_Click_5"/>
+        <Button Grid.Column="0" Grid.Row="6" Content="Measure Value" Margin="10" Width="120" Click="Button_Click_6"/>
+        <Button Grid.Column="0" Grid.Row="7" Content="Software Version" Margin="10" Width="120" Click="Button_Click_7"/>
 
-        <Button Content="Bank Switching" HorizontalAlignment="Left" Margin="30,83,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_1"/>
-        <Button Content="LD OFF Start" HorizontalAlignment="Left" Margin="30,120,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_2"/>
-        <Button Content="LD OFF End" HorizontalAlignment="Left" Margin="30,160,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_3"/>
-        <Button Content="BANK0 H (Max)" HorizontalAlignment="Left" Margin="30,200,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_4"/>
-        <Button Content="BANK0 L (Min)" HorizontalAlignment="Left" Margin="30,240,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_5"/>
-        <Button Content="Measure Value" HorizontalAlignment="Left" Margin="30,280,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_6"/>
-        <Button Content="Software Version" HorizontalAlignment="Left" Margin="30,320,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_7"/>
+        <Button Grid.Column="1" Grid.Row="1" Name="NoSensorConnected" Content="No Sensor Connected" Margin="10" Width="150" Click="NoSensorConnected_Click"/>
+        <Button Grid.Column="1" Grid.Row="2" Name="TimeoutError" Content="Timeout Error" Margin="10" Width="150" Click="TimeoutError_Click"/>
+        <Button Grid.Column="1" Grid.Row="3" Name="ConnectionError" Content="Connection Error" Margin="10" Width="150" Click="ConnectionError_Click"/>
+        <Button Grid.Column="1" Grid.Row="4" Name="IllegalCommandError" Content="Illegal Command Error" Margin="10" Width="150" Click="IllegalCommandError_Click"/>
+        <Button Grid.Column="1" Grid.Row="5" Name="ParameterError" Content="Parameter Error" Margin="10" Width="150" Click="ParameterError_Click"/>
+
+        <Button Grid.Column="2" Grid.Row="1" Name="Error107" Content="Error: Bank Switching" Margin="10" Width="120" Click="Error107_Click"/>
+        <Button Grid.Column="2" Grid.Row="2" Name="Error400" Content="Error: LD OFF Start" Margin="10" Width="120" Click="Error400_Click"/>
+        <Button Grid.Column="2" Grid.Row="3" Name="Error401" Content="Error: LD OFF End" Margin="10" Width="120" Click="Error401_Click"/>
+        <Button Grid.Column="2" Grid.Row="4" Name="Error132" Content="Error: BANK0 H (Max)" Margin="10" Width="120" Click="Error132_Click"/>
+        <Button Grid.Column="2" Grid.Row="5" Name="Error133" Content="Error: Bank0 L (Min)" Margin="10" Width="120" Click="Error133_Click"/>
+        <Button Grid.Column="2" Grid.Row="6" Name="Error519" Content="Error: Measured Value" Margin="10" Width="120" Click="Error519_Click"/>
+        <Button Grid.Column="2" Grid.Row="7" Name="Error580" Content="Error: Software Version" Margin="10" Width="120" Click="Error580_Click"/>
+
+        <Button Grid.Column="4" Grid.Row="1" Name="StartDummySensor" Content="Start Dummy Sensor" Margin="10" Width="120" Click="StartDummySensor_Click"/>
+        <Button Grid.Column="4" Grid.Row="2" Name="StopDummySensor" Content="Stop Dummy Sensor" Margin="10" Width="120" Click="StopDummySensor_Click" />
+        
     </Grid>
 </Window>

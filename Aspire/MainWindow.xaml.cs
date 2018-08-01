@@ -94,10 +94,12 @@ namespace Aspire
             sw.ShowDialog();
         }
 
+
+        #region For Test Only
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             string command;
-
             sensor = new ZX2_SF11();
             command = "SR,01," + sensor.BankSwitching + Environment.NewLine;
             Debug.Print(command);
@@ -157,6 +159,104 @@ namespace Aspire
             Debug.Print(command);
             serialPort.Write(command);
         }
+
+        private void NoSensorConnected_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SR,00" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void TimeoutError_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SR,02" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void ConnectionError_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SR,20" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void IllegalCommandError_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SR,30" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void ParameterError_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SR,31" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void Error107_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SW,107" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void Error400_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SW,400" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void Error401_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SW,401" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void Error132_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SW,132" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void Error133_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SW,133" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void Error519_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SW,519" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        private void Error580_Click(object sender, RoutedEventArgs e)
+        {
+            string command;
+            command = "ER,SW,580" + Environment.NewLine;
+            Debug.Print(command);
+            serialPort.Write(command);
+        }
+
+        #endregion
 
     }
 }
