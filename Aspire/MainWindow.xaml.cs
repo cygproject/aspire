@@ -112,6 +112,138 @@ namespace Aspire
             indata = indata.TrimEnd(trimChars);
             Debug.Print(indata);
 
+            // Process received data...
+            ParseString(indata);
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private void ParseString(string data)
+        {
+            sensor = new ZX2_SF11();
+
+            char[] delimiterChars = { ',' };
+            string[] words = data.Split(delimiterChars);
+
+            if (words[0].Equals("SR")) // Response OK
+            {
+                if (words[1].Equals("01")) // Channel 1
+                {
+                    if (words[2].Equals(sensor.BankSwitching))
+                    {
+                        Debug.Print(sensor.BankSwitching);
+                    }
+                    else if (words[2].Equals(sensor.LDOffStart))
+                    {
+                        Debug.Print(sensor.LDOffStart);
+                    }
+                    else if (words[2].Equals(sensor.LDOffEnd))
+                    {
+                        Debug.Print(sensor.LDOffEnd);
+                    }
+                    else if (words[2].Equals(sensor.Bank0HThreshold))
+                    {
+                        Debug.Print(sensor.Bank0HThreshold);
+                    }
+                    else if (words[2].Equals(sensor.Bank0LThreshold))
+                    {
+                        Debug.Print(sensor.Bank0LThreshold);
+                    }
+                    else if (words[2].Equals(sensor.MeasuredValue))
+                    {
+                        Debug.Print(sensor.MeasuredValue);
+                        double val = Convert.ToDouble(words[3]);
+
+                        //TODO: Plot data or save in CSV file...
+                        
+                    }
+                    else if (words[2].Equals(sensor.SoftwareVersion))
+                    {
+                        Debug.Print(sensor.SoftwareVersion);
+                    }
+                    else
+                    {
+                        Debug.Print("Unknown Error");
+                    }
+                }
+            }
+            else if (words[0].Equals("ER")) // Response Error
+            {
+                if (words[1].Equals("SR"))
+                {
+                    if (words[2].Equals(sensor.NoSensorConnectedError))
+                    {
+                        Debug.Print(sensor.NoSensorConnectedError);
+                    }
+                    else if (words[2].Equals(sensor.TimeOutError))
+                    {
+                        Debug.Print(sensor.TimeOutError);
+                    }
+                    else if (words[2].Equals(sensor.ConnectionError))
+                    {
+                        Debug.Print(sensor.ConnectionError);
+                    }
+                    else if (words[2].Equals(sensor.IllegalCommandError))
+                    {
+                        Debug.Print(sensor.IllegalCommandError);
+                    }
+                    else if (words[2].Equals(sensor.ParameterError))
+                    {
+                        Debug.Print(sensor.ParameterError);
+                    }
+                    else
+                    {
+                        Debug.Print("Unknown Error");
+                    }
+                }
+                else if(words[1].Equals("SW"))
+                {
+                    if (words[2].Equals(sensor.BankSwitching))
+                    {
+                        Debug.Print(sensor.BankSwitching);
+                    }
+                    else if(words[2].Equals(sensor.LDOffStart))
+                    {
+                        Debug.Print(sensor.LDOffStart);
+                    }
+                    else if (words[2].Equals(sensor.LDOffEnd))
+                    {
+                        Debug.Print(sensor.LDOffEnd);
+                    }
+                    else if (words[2].Equals(sensor.Bank0HThreshold))
+                    {
+                        Debug.Print(sensor.Bank0HThreshold);
+                    }
+                    else if (words[2].Equals(sensor.Bank0LThreshold))
+                    {
+                        Debug.Print(sensor.Bank0LThreshold);
+                    }
+                    else if (words[2].Equals(sensor.MeasuredValue))
+                    {
+                        Debug.Print(sensor.MeasuredValue);
+                    }
+                    else if (words[2].Equals(sensor.SoftwareVersion))
+                    {
+                        Debug.Print(sensor.SoftwareVersion);
+                    }
+                    else
+                    {
+                        Debug.Print("Unknown Error");
+                    }
+                }
+                else
+                {
+                    Debug.Print("Unknown Error");
+                }
+            }
+            else
+            {
+
+            }
+
         }
 
         private void MenuItem_Exit_Click(object sender, RoutedEventArgs e)
