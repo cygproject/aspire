@@ -3,10 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:Aspire"
         mc:Ignorable="d"
+        Name="PlotWindow"
         WindowStartupLocation="CenterScreen"
         Title="Aspire" Height="450" Width="800">
+
+    <Window.DataContext>
+        <local:PlotViewModel />
+    </Window.DataContext>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -37,9 +44,37 @@
                 <Button Name="Stop" Content="Stop" Margin="10" Width="120" Click="StopMeasurement_Click" />
             </StackPanel>
         </Grid>
-        
 
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Name="grdGraph" Margin="2">
+            <oxy:Plot Name="PlotView"
+                      Background="White"
+                      PlotAreaBorderColor="Transparent"
+                      LegendBackground="Transparent"
+                      LegendSymbolLength="20"
+                      LegendTextColor="Black"
+                      LegendTitle="Amplitude"
+                      LegendTitleColor="Blue">
+                <oxy:Plot.Series>
+                    <oxy:LineSeries Name="lineSeriesX" ItemsSource="{Binding XValues}" Color="Red" />
+                    <oxy:LineSeries Name="lineSeriesY" ItemsSource="{Binding YValues}" Color="LightGreen" />
+                    <oxy:LineSeries Name="lineSeriesZ" ItemsSource="{Binding ZValues}" Color="Blue" />
+                </oxy:Plot.Series>
 
+                <oxy:Plot.Axes>
+                    <oxy:LinearAxis Position="Left" AxislineColor="Gray"
+                                    Maximum="{Binding ElementName=PlotWindow, Path=VerticalScaleMax}"
+                                    Minimum="{Binding ElementName=PlotWindow, Path=VerticalScaleMin}"
+                                    MajorGridlineStyle="Solid" MajorGridlineColor="Gray"
+                                    MinorGridlineStyle="Dot" MinorGridlineColor="Gray" />
+
+                    <oxy:LinearAxis Position="Bottom"
+                                    Maximum="{Binding ElementName=PlotWindow, Path=HorizontalScaleMax}"
+                                    Minimum="{Binding ElementName=PlotWindow, Path=HorizontalScaleMin}"
+                                    MajorGridlineStyle="Solid" MajorGridlineColor="Gray"
+                                    MinorGridlineStyle="Dot" MinorGridlineColor="Gray" />
+                </oxy:Plot.Axes>
+            </oxy:Plot>
+        </Grid>
 
     </Grid>
 </Window>

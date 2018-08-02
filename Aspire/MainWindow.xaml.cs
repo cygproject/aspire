@@ -22,6 +22,86 @@ namespace Aspire
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region 依存プロパティー
+
+        /// <summary>
+        /// 縦軸の最大値 依存プロパティー | Maximum value on the vertical axis
+        /// </summary>
+        public static readonly DependencyProperty VerticalScaleMaxProperty =
+                DependencyProperty.Register(
+                    "VerticalScaleMax",             // プロパティ名を指定
+                    typeof(int),                    // プロパティの型を指定
+                    typeof(MainWindow),             // プロパティを所有する型を指定
+                    new PropertyMetadata(999));     // メタデータを指定。ここではデフォルト値を設定してる
+
+        /// <summary>
+        /// 縦軸の最小値 依存プロパティー | Minimum value on the vertical axis
+        /// </summary>
+        public static readonly DependencyProperty VerticalScaleMinProperty =
+                DependencyProperty.Register(
+                    "VerticalScaleMin",
+                    typeof(int),
+                    typeof(MainWindow),
+                    new PropertyMetadata(-99));
+
+        /// <summary>
+        /// 横軸の最大値 依存プロパティー | Maximum value on the horizontal axis
+        /// </summary>
+        public static readonly DependencyProperty HorizontalScaleMaxProperty =
+                DependencyProperty.Register(
+                    "HorizontalScaleMax",
+                    typeof(int),
+                    typeof(MainWindow),
+                    new PropertyMetadata(60));
+
+        /// <summary>
+        /// 横軸の最小値 依存プロパティー | Minimum value on the horizontal axis
+        /// </summary>
+        public static readonly DependencyProperty HorizontalScaleMinProperty =
+                DependencyProperty.Register(
+                    "HorizontalScaleMin",
+                    typeof(int),
+                    typeof(MainWindow),
+                    new PropertyMetadata(0));
+
+        #endregion 依存プロパティー
+
+        /// <summary>
+        /// 縦軸スケールの最大値 | Maximum value of vertical scale
+        /// </summary>
+        public int VerticalScaleMax
+        {
+            get { return (int)GetValue(VerticalScaleMaxProperty); }
+            set { SetValue(VerticalScaleMaxProperty, value); }
+        }
+
+        /// <summary>
+        /// 縦軸スケールの最小値 | Minimum value of vertical scale
+        /// </summary>
+        public int VerticalScaleMin
+        {
+            get { return (int)GetValue(VerticalScaleMinProperty); }
+            set { SetValue(VerticalScaleMinProperty, value); }
+        }
+
+        /// <summary>
+        /// 横軸スケールの最大値 | Maximum value on the horizontal axis scale
+        /// </summary>
+        public int HorizontalScaleMax
+        {
+            get { return (int)GetValue(HorizontalScaleMaxProperty); }
+            set { SetValue(HorizontalScaleMaxProperty, value); }
+        }
+
+        /// <summary>
+        /// 横軸スケールの最小値 | Minimum value on the horizontal axis scale
+        /// </summary>
+        public int HorizontalScaleMin
+        {
+            get { return (int)GetValue(HorizontalScaleMinProperty); }
+            set { SetValue(HorizontalScaleMinProperty, value); }
+        }
+
         /// <summary>
         /// シリアルポート | Serial port
         /// </summary>
@@ -42,6 +122,11 @@ namespace Aspire
         /// </summary>
         private bool enableMeasurement;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private PlotViewModel plotViewModel = null;
+
 
         /// <summary>
         /// 
@@ -51,6 +136,9 @@ namespace Aspire
             InitializeComponent();
 
             enableMeasurement = false;
+
+            plotViewModel = DataContext as PlotViewModel;
+            plotViewModel.MaxCount = (HorizontalScaleMax - HorizontalScaleMin);
 
             OpenSerialPort();
         }
@@ -157,8 +245,15 @@ namespace Aspire
                         Debug.Print(sensor.MeasuredValue);
                         double val = Convert.ToDouble(words[3]);
 
-                        //TODO: Plot data or save in CSV file...
-                        
+                        // Plot data or save in CSV file...
+                        if (true)
+                        {
+                            this.Dispatcher.BeginInvoke((Action)(() =>
+                            {
+                                plotViewModel.AddData(val, val, val);
+                            }));
+                        }
+
                     }
                     else if (words[2].Equals(sensor.SoftwareVersion))
                     {
