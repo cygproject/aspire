@@ -140,6 +140,8 @@ namespace Aspire
             plotViewModel = DataContext as PlotViewModel;
             plotViewModel.MaxCount = (HorizontalScaleMax - HorizontalScaleMin);
 
+            sensor = new ZX2_SF11();
+
             OpenSerialPort();
         }
 
@@ -211,8 +213,6 @@ namespace Aspire
         /// <returns></returns>
         private void ParseString(string data)
         {
-            sensor = new ZX2_SF11();
-
             char[] delimiterChars = { ',' };
             string[] words = data.Split(delimiterChars);
 
@@ -399,7 +399,6 @@ namespace Aspire
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             string command;
-            sensor = new ZX2_SF11();
             command = "SR,01," + sensor.BankSwitching + Environment.NewLine;
             Debug.Print(command);
             serialPort.Write(command);
@@ -408,7 +407,6 @@ namespace Aspire
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             string command;
-            sensor = new ZX2_SF11();
             command = "SR,01," + sensor.LDOffStart + Environment.NewLine;
             Debug.Print(command);
             serialPort.Write(command);
@@ -417,7 +415,6 @@ namespace Aspire
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             string command;
-            sensor = new ZX2_SF11();
             command = "SR,01," + sensor.LDOffEnd + Environment.NewLine;
             Debug.Print(command);
             serialPort.Write(command);
@@ -426,7 +423,6 @@ namespace Aspire
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             string command;
-            sensor = new ZX2_SF11();
             command = "SR,01," + sensor.Bank0HThreshold + Environment.NewLine;
             Debug.Print(command);
             serialPort.Write(command);
@@ -435,7 +431,6 @@ namespace Aspire
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             string command;
-            sensor = new ZX2_SF11();
             command = "SR,01," + sensor.Bank0LThreshold + Environment.NewLine;
             Debug.Print(command);
             serialPort.Write(command);
@@ -444,7 +439,6 @@ namespace Aspire
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
             string command;
-            sensor = new ZX2_SF11();
             command = "SR,01," + sensor.MeasuredValue + Environment.NewLine;
             Debug.Print(command);
             serialPort.Write(command);
@@ -453,7 +447,6 @@ namespace Aspire
         private void Button_Click_7(object sender, RoutedEventArgs e)
         {
             string command;
-            sensor = new ZX2_SF11();
             command = "SR,01," + sensor.SoftwareVersion + Environment.NewLine;
             Debug.Print(command);
             serialPort.Write(command);
