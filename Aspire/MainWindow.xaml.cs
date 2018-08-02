@@ -169,6 +169,21 @@ namespace Aspire
             StartMeasurement();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+#if USE_DISPATCH_TIMER
+            dispatchTimer.Stop();
+#else
+            enableMeasurement = false;
+#endif
+            CloseSerialPort();
+        }
+
         /// Opens a new serial port connection.
         /// </summary>
         private void OpenSerialPort()
@@ -366,13 +381,6 @@ namespace Aspire
 
         private void MenuItem_Exit_Click(object sender, RoutedEventArgs e)
         {
-#if USE_DISPATCH_TIMER
-            dispatchTimer.Stop();
-#else
-            enableMeasurement = false;
-#endif
-            CloseSerialPort();
-
             Application.Current.Shutdown();
         }
 

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:Aspire"
+        Closed="MainWindow_Closed"
         mc:Ignorable="d"
         Name="PlotWindow"
         WindowStartupLocation="CenterScreen"
