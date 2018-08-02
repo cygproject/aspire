@@ -1,6 +1,7 @@
 ﻿using OxyPlot;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Aspire
 {
@@ -32,16 +33,18 @@ namespace Aspire
 
         //データ格納配列
         public ObservableCollection<DataPoint> XValues { get; private set; }
-//        public ObservableCollection<DataPoint> YValues { get; private set; }
-//        public ObservableCollection<DataPoint> ZValues { get; private set; }
-
+        public ObservableCollection<DataPoint> YValues { get; private set; }
+#if NOT_USED
+        public ObservableCollection<DataPoint> ZValues { get; private set; }
+#endif
         public int MaxCount;            //最大格納数
 
         private const int THRESHOLD_NOP_COUNT = 10;   //無効区間　10回は無視する
         private const int THRESHOLD_SHUFFLE = 150;    //振った際の判定値
-
+#if false
         private int _nopCounter = 0;    //解析無効区間判定カウンター
-        private Object _lockObj = new Object();
+#endif
+        private readonly Object LockObj = new Object();
 
         /// <summary>
         /// コンストラクタ
@@ -49,17 +52,22 @@ namespace Aspire
         public PlotViewModel()
         {
             XValues = new ObservableCollection<DataPoint>();
-//            YValues = new ObservableCollection<DataPoint>();
-//            ZValues = new ObservableCollection<DataPoint>();
+            YValues = new ObservableCollection<DataPoint>();
+#if NOT_USED
+            ZValues = new ObservableCollection<DataPoint>();
+#endif
 
-//            // Initialize charts with dummy data
-//            for (int i = 0; i < 100; i++)
-//            {
-//                XValues.Add(new DataPoint(i, i));
-////              YValues.Add(new DataPoint(i, i*i));
-////              ZValues.Add(new DataPoint(i, 100*Math.Sin(i*(Math.PI/180))));
-//            }
-
+#if DEBUG_ONLY
+            // Initialize plot with dummy data
+            for (int i = 0; i < 100; i++)
+            {
+                XValues.Add(new DataPoint(i, i));
+#if NOT_USED
+                YValues.Add(new DataPoint(i, i*i));
+                ZValues.Add(new DataPoint(i, 100*Math.Sin(i*(Math.PI/180))));
+#endif
+            }
+#endif
         }
 
         /// <summary>
@@ -70,22 +78,36 @@ namespace Aspire
         /// <param name="z"></param>
         public void AddData(double x, double y, double z)
         {
-            lock (_lockObj)
+            double ave = 0.0;
+            double sum = 0.0;
+
+            lock (LockObj)
             {
                 XValues.Add(new DataPoint(XValues.Count, x));
-//                YValues.Add(new DataPoint(YValues.Count, y));
-//                ZValues.Add(new DataPoint(ZValues.Count, z));
 
+                for (int cnt = 0; cnt < XValues.Count; cnt++)
+                {
+                    sum += XValues[cnt].Y;
+                }
+                ave = sum / XValues.Count;
+
+                Debug.Print("Count:" + XValues.Count);
+
+                YValues.Add(new DataPoint(YValues.Count, ave));
+#if NOT_USED
+                ZValues.Add(new DataPoint(ZValues.Count, z));
+#endif
                 if (MaxCount == XValues.Count)
                 {
                     XValues.RemoveAt(0);
-                    reNumbering(XValues);
+                    UpdateIndex(XValues);
 
-//                  YValues.RemoveAt(0);
-//                  reNumbering(YValues);
-
-//                  ZValues.RemoveAt(0);
-//                  reNumbering(ZValues);
+                    YValues.RemoveAt(0);
+                    UpdateIndex(YValues);
+#if NOT_USED
+                    ZValues.RemoveAt(0);
+                    UpdateIndex(ZValues);
+#endif
                 }
 #if false
                 ParseData();
@@ -141,7 +163,7 @@ namespace Aspire
         ///
         /// </summary>
         /// <param name="values"></param>
-        private void reNumbering(ObservableCollection<DataPoint> values)
+        private void UpdateIndex(ObservableCollection<DataPoint> values)
         {
             int index = 0;
             for (int cnt = 0; cnt < values.Count; cnt++)
@@ -157,8 +179,10 @@ namespace Aspire
         public void ClearAll()
         {
             XValues.Clear();
-//            YValues.Clear();
-//            ZValues.Clear();
+            YValues.Clear();
+#if NOT_USED
+            ZValues.Clear();
+#endif
         }
     }
 }

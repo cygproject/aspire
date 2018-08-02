@@ -57,9 +57,9 @@
                       LegendTitle="Amplitude"
                       LegendTitleColor="Blue">
                 <oxy:Plot.Series>
-                    <oxy:LineSeries Name="lineSeriesX" ItemsSource="{Binding XValues}" Color="Red" />
-                    <oxy:LineSeries Name="lineSeriesY" ItemsSource="{Binding YValues}" Color="LightGreen" />
-                    <oxy:LineSeries Name="lineSeriesZ" ItemsSource="{Binding ZValues}" Color="Blue" />
+                    <oxy:LineSeries Name="lineSeriesX" ItemsSource="{Binding XValues}" Color="Blue" />
+                    <oxy:LineSeries Name="lineSeriesY" ItemsSource="{Binding YValues}" Color="Red" LineStyle="Dot"/>
+                    <oxy:LineSeries Name="lineSeriesZ" ItemsSource="{Binding ZValues}" Color="LightGreen" />
                 </oxy:Plot.Series>
 
                 <oxy:Plot.Axes>
