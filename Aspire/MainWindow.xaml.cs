@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Aspire
 {
@@ -112,6 +113,12 @@ namespace Aspire
         /// </summary>
         private ZX2_SF11 sensor = null;
         
+#if USE_DISPATCH_TIMER
+        /// <summary>
+        /// 
+        /// </summary>
+        DispatcherTimer dispatchTimer = null;
+#else
         /// <summary>
         /// 
         /// </summary>
@@ -121,6 +128,7 @@ namespace Aspire
         /// 
         /// </summary>
         private bool enableMeasurement;
+#endif
 
         /// <summary>
         /// 
@@ -134,9 +142,13 @@ namespace Aspire
         public MainWindow()
         {
             InitializeComponent();
-
+#if USE_DISPATCH_TIMER
+            dispatchTimer = new DispatcherTimer();
+            dispatchTimer.Interval = TimeSpan.FromMilliseconds(100);
+            dispatchTimer.Tick += TimerTick;
+#else
             enableMeasurement = false;
-
+#endif
             plotViewModel = DataContext as PlotViewModel;
             plotViewModel.MaxCount = (HorizontalScaleMax - HorizontalScaleMin);
 
@@ -146,6 +158,15 @@ namespace Aspire
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void TimerTick(object sender, EventArgs e)
+        {
+            StartMeasurement();
+        }
+
         /// Opens a new serial port connection.
         /// </summary>
         private void OpenSerialPort()
@@ -343,8 +364,11 @@ namespace Aspire
 
         private void MenuItem_Exit_Click(object sender, RoutedEventArgs e)
         {
+#if USE_DISPATCH_TIMER
+            dispatchTimer.Stop();
+#else
             enableMeasurement = false;
-
+#endif
             CloseSerialPort();
 
             Application.Current.Shutdown();
@@ -359,8 +383,8 @@ namespace Aspire
 
         private void StartMeasurement_Click(object sender, RoutedEventArgs e)
         {
-#if false
-            StartMeasurement();
+#if USE_DISPATCH_TIMER
+            dispatchTimer.Start();
 #else
             measureThread = new System.Threading.Thread(new System.Threading.ThreadStart(StartMeasurement));
             measureThread.Start();
@@ -369,7 +393,11 @@ namespace Aspire
 
         private void StopMeasurement_Click(object sender, RoutedEventArgs e)
         {
+#if USE_DISPATCH_TIMER
+            dispatchTimer.Stop();
+#else
             enableMeasurement = false;
+#endif
         }
 
         /// <summary>
@@ -378,20 +406,18 @@ namespace Aspire
         private void StartMeasurement()
         {
             string command;
+            command = "SR,01," + sensor.MeasuredValue + Environment.NewLine;
+#if USE_DISPATCH_TIMER
+            serialPort.Write(command);
+#else
             enableMeasurement = true;
 
             while (enableMeasurement)
             {
-#if CRLF
-                command = "SR,01," + DATA_NO_519_MEASURED_VALUE + CR + LF;
-#else
-                sensor = new ZX2_SF11();
-                command = "SR,01," + sensor.MeasuredValue + Environment.NewLine;
-#endif
                 serialPort.Write(command);
-
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(100);
             }
+#endif
         }
 
         #region For Test Only
