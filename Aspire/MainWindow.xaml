@@ -42,6 +42,7 @@
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                 <Button Name="Start" Content="Start" Margin="10" Width="120" Click="StartMeasurement_Click"/>
                 <Button Name="Stop" Content="Stop" Margin="10" Width="120" Click="StopMeasurement_Click" />
+                <Button Name="Clear" Content="Clear" Margin="10" Width="120" Click="ClearMeasurement_Click" />
             </StackPanel>
         </Grid>
 

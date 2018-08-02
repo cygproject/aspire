@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -400,6 +402,11 @@ namespace Aspire
 #endif
         }
 
+        private void ClearMeasurement_Click(object sender, RoutedEventArgs e)
+        {
+            ClearPlotView();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -418,6 +425,19 @@ namespace Aspire
                 System.Threading.Thread.Sleep(100);
             }
 #endif
+        }
+
+        /// <summary>
+        /// Clears data on plot view
+        /// </summary>
+        private void ClearPlotView()
+        {
+#if USE_DISPATCH_TIMER
+
+#else
+            enableMeasurement = false;
+#endif
+            plotViewModel.ClearAll();
         }
 
         #region For Test Only
