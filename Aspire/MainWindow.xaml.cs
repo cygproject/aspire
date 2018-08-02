@@ -32,10 +32,25 @@ namespace Aspire
         /// </summary>
         private ZX2_SF11 sensor = null;
         
+        /// <summary>
+        /// 
+        /// </summary>
+        System.Threading.Thread measureThread;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool enableMeasurement;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+
+            enableMeasurement = false;
 
             OpenSerialPort();
         }
@@ -52,6 +67,9 @@ namespace Aspire
             serialPort.StopBits = config.SerialPortSettingsData.StopBit;
             serialPort.DataBits = config.SerialPortSettingsData.Databit;
             serialPort.Handshake = config.SerialPortSettingsData.FlowControl;
+
+            // Data received event
+            serialPort.DataReceived += new SerialDataReceivedEventHandler(SerialDataReceivedHandler);
 
             try
             {
@@ -80,8 +98,26 @@ namespace Aspire
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SerialDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = (SerialPort)sender;
+            string indata = sp.ReadLine();
+
+            char[] trimChars = { '\r', '\n' };
+            indata = indata.TrimEnd(trimChars);
+            Debug.Print(indata);
+
+        }
+
         private void MenuItem_Exit_Click(object sender, RoutedEventArgs e)
         {
+            enableMeasurement = false;
+
             CloseSerialPort();
 
             Application.Current.Shutdown();
@@ -94,6 +130,42 @@ namespace Aspire
             sw.ShowDialog();
         }
 
+        private void StartMeasurement_Click(object sender, RoutedEventArgs e)
+        {
+#if false
+            StartMeasurement();
+#else
+            measureThread = new System.Threading.Thread(new System.Threading.ThreadStart(StartMeasurement));
+            measureThread.Start();
+#endif
+        }
+
+        private void StopMeasurement_Click(object sender, RoutedEventArgs e)
+        {
+            enableMeasurement = false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void StartMeasurement()
+        {
+            string command;
+            enableMeasurement = true;
+
+            while (enableMeasurement)
+            {
+#if CRLF
+                command = "SR,01," + DATA_NO_519_MEASURED_VALUE + CR + LF;
+#else
+                sensor = new ZX2_SF11();
+                command = "SR,01," + sensor.MeasuredValue + Environment.NewLine;
+#endif
+                serialPort.Write(command);
+
+                System.Threading.Thread.Sleep(1000);
+            }
+        }
 
         #region For Test Only
 
