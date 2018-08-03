@@ -59,6 +59,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MeasurementSettingsWindow.xaml.cs">
+      <DependentUpon>MeasurementSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PlotViewModel.cs" />
     <Compile Include="SerialPortSettings.cs" />
     <Compile Include="SettingsData.cs" />
@@ -78,6 +81,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MeasurementSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionary\Dictionary.en-US.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
