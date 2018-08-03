@@ -39,11 +39,6 @@ namespace Aspire
 #endif
         public int MaxCount;            //最大格納数
 
-        private const int THRESHOLD_NOP_COUNT = 10;   //無効区間　10回は無視する
-        private const int THRESHOLD_SHUFFLE = 150;    //振った際の判定値
-#if false
-        private int _nopCounter = 0;    //解析無効区間判定カウンター
-#endif
         private readonly Object LockObj = new Object();
 
         /// <summary>
@@ -109,56 +104,10 @@ namespace Aspire
                     UpdateIndex(ZValues);
 #endif
                 }
-#if false
-                ParseData();
-#endif
             }
+
         }
-#if false
-        /// <summary>
-        ///
-        /// </summary>
-        private void ParseData()
-        {
-            if (_nopCounter > 0)
-            {
-                _nopCounter--;
-            }
 
-            //解析 | Analysis
-            if ((ZValues.Count > 3) && (_nopCounter == 0))
-            {
-                double diff = 0;
-                diff = ZValues[ZValues.Count - 1].Y - ZValues[ZValues.Count - 2].Y;
-
-                if ((ZValues[ZValues.Count - 1].Y > ZValues[ZValues.Count - 2].Y) && (Math.Abs(diff) > THRESHOLD_SHUFFLE))
-                {
-                    _nopCounter = THRESHOLD_NOP_COUNT;
-                    this.ActionOccurred(this, new PlotEventArgs(PlotEventArgs.EventType.Z_UP));
-                }
-                else if ((ZValues[ZValues.Count - 1].Y < ZValues[ZValues.Count - 2].Y) && (Math.Abs(diff) > THRESHOLD_SHUFFLE))
-                {
-                    _nopCounter = THRESHOLD_NOP_COUNT;
-                    this.ActionOccurred(this, new PlotEventArgs(PlotEventArgs.EventType.Z_DOWN));
-                }
-
-                /*
-                if (ZValues[ZValues.Count - 1].Y - ZValues[ZValues.Count - 2].Y > THRESHOLD_SHUFFLE)
-                {
-                    //Z軸アップイベント発生させる
-                    _nopCounter = THRESHOLD_NOP_COUNT;
-                    this.ActionOccurred(this, new ActionOccurredEventArgs(ActionOccurredEventArgs.EventType.Z_UP));
-                }
-                else if (ZValues[ZValues.Count - 1].Y - ZValues[ZValues.Count - 2].Y < -THRESHOLD_SHUFFLE)
-                {
-                    //Z軸ダウンイベント発生させる
-                    _nopCounter = THRESHOLD_NOP_COUNT;
-                    this.ActionOccurred(this, new ActionOccurredEventArgs(ActionOccurredEventArgs.EventType.Z_DOWN));
-                }
-                */
-            }
-        }
-#endif
         /// <summary>
         ///
         /// </summary>
