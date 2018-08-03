@@ -25,13 +25,14 @@
             <RowDefinition Height="0.1*"></RowDefinition>
             <RowDefinition Height="0.85*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
         <Menu Grid.ColumnSpan="4" Height="20" VerticalAlignment="Top">
             <MenuItem Header="File">
                 <MenuItem Header="Exit" Click="MenuItem_Exit_Click" />
             </MenuItem>
             <MenuItem Header="Settings">
                 <MenuItem Header="Port" Click="MenuItem_Settings_Click" />
+                <MenuItem Header="Measurement" Click="MenuItem_Measurement_Click" />
             </MenuItem>
             <MenuItem Header="View">
             </MenuItem>
