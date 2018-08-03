@@ -106,6 +106,11 @@ namespace Aspire
         }
 
         /// <summary>
+        /// Measurement interval in sec (0.1 ~ 1.0)
+        /// </summary>
+        private int measurementInterval;
+
+        /// <summary>
         /// シリアルポート | Serial port
         /// </summary>
         private SerialPort serialPort = null;
@@ -131,6 +136,10 @@ namespace Aspire
         /// </summary>
         private bool enableMeasurement;
 #endif
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool measurementRunning;
 
         /// <summary>
         /// 
@@ -144,16 +153,25 @@ namespace Aspire
         public MainWindow()
         {
             InitializeComponent();
+
+            var config = SettingsData.Load();
+            measurementInterval = Convert.ToInt16(config.MeasurementSettingsData.Interval);
+
+            measurementRunning = false;
+
 #if USE_DISPATCH_TIMER
             dispatchTimer = new DispatcherTimer();
-            dispatchTimer.Interval = TimeSpan.FromMilliseconds(100);
+            dispatchTimer.Interval = TimeSpan.FromMilliseconds(measurementInterval);
             dispatchTimer.Tick += TimerTick;
 #else
             enableMeasurement = false;
 #endif
             plotViewModel = DataContext as PlotViewModel;
             plotViewModel.MaxCount = (HorizontalScaleMax - HorizontalScaleMin);
-
+            plotViewModel.Interval = measurementInterval / 1000.0;
+#if NOT_USED
+            plotViewModel.ActionOccurred += PlotViewModelActionOccurred;
+#endif
             sensor = new ZX2_SF11();
 
             OpenSerialPort();
@@ -288,7 +306,7 @@ namespace Aspire
                         {
                             this.Dispatcher.BeginInvoke((Action)(() =>
                             {
-                                plotViewModel.AddData(val, val, val);
+                                plotViewModel.AddData(val);
                             }));
                         }
 
@@ -391,23 +409,42 @@ namespace Aspire
             sw.ShowDialog();
         }
 
+        private void MenuItem_Measurement_Click(object sender, RoutedEventArgs e)
+        {
+            MeasurementSettingsWindow sw = new MeasurementSettingsWindow();
+            sw.Owner = this;
+            Nullable<bool> dialogResult = sw.ShowDialog();
+
+            if(dialogResult == true && measurementRunning == true)
+            {
+                dispatchTimer.Stop();
+
+                var config = SettingsData.Load();
+                measurementInterval = Convert.ToInt16(config.MeasurementSettingsData.Interval);
+                dispatchTimer.Interval = TimeSpan.FromMilliseconds(measurementInterval);
+
+                dispatchTimer.Start();
+            }
+        }
+
         private void StartMeasurement_Click(object sender, RoutedEventArgs e)
         {
+            var config = SettingsData.Load();
+            measurementInterval = Convert.ToInt16(config.MeasurementSettingsData.Interval);
+            plotViewModel.Interval = measurementInterval / 1000.0;
 #if USE_DISPATCH_TIMER
+            dispatchTimer.Interval = TimeSpan.FromMilliseconds(measurementInterval);
             dispatchTimer.Start();
 #else
             measureThread = new System.Threading.Thread(new System.Threading.ThreadStart(StartMeasurement));
             measureThread.Start();
 #endif
+            measurementRunning = true;
         }
 
         private void StopMeasurement_Click(object sender, RoutedEventArgs e)
         {
-#if USE_DISPATCH_TIMER
-            dispatchTimer.Stop();
-#else
-            enableMeasurement = false;
-#endif
+            StopMeasurement();
         }
 
         private void ClearMeasurement_Click(object sender, RoutedEventArgs e)
@@ -430,9 +467,22 @@ namespace Aspire
             while (enableMeasurement)
             {
                 serialPort.Write(command);
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(measurementInterval);
             }
 #endif
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void StopMeasurement()
+        {
+#if USE_DISPATCH_TIMER
+            dispatchTimer.Stop();
+#else
+            enableMeasurement = false;
+#endif
+            measurementRunning = false;
         }
 
         /// <summary>
