@@ -46,7 +46,7 @@
         </Grid>
 
         <DockPanel VerticalAlignment="Bottom" Margin="10">
-            <Button Width="70" HorizontalAlignment="Right" Click="OkButton_Click" Content="{StaticResource Save}"></Button>
+            <Button Width="70" HorizontalAlignment="Right" Click="SaveButton_Click" Content="{StaticResource Save}"></Button>
             <Button Width="70" HorizontalAlignment="Right" Click="CancelButton_Click" Content="{StaticResource Cancel}"></Button>
         </DockPanel>
     </Grid>

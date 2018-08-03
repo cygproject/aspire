@@ -54,7 +54,7 @@ namespace Aspire
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 #if false
-             Center window with respect to MainWindow
+            // Center window with respect to MainWindow
             Application curApp = Application.Current;
             Window mainWindow = curApp.MainWindow;
             this.Left = mainWindow.Left + (mainWindow.Width - this.ActualWidth) / 2;
@@ -75,7 +75,7 @@ namespace Aspire
             this.Close();
         }
 
-        private void OkButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             var config = SettingsData.Load();
             config.SerialPortSettingsData.PortNum = cmbPortNo.Text;
