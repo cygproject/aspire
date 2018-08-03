@@ -26,20 +26,33 @@ namespace Aspire
     /// </summary>
     public class PlotViewModel
     {
+#if NOT_USED
         /// <summary>
         /// イベント
         /// </summary>
         public event EventHandler<PlotEventArgs> ActionOccurred;
-
+#endif
         //データ格納配列
         public ObservableCollection<DataPoint> XValues { get; private set; }
         public ObservableCollection<DataPoint> YValues { get; private set; }
 #if NOT_USED
         public ObservableCollection<DataPoint> ZValues { get; private set; }
 #endif
-        public int MaxCount;            //最大格納数
+        /// <summary>
+        /// 最大格納数 | Number of data to store (maximum)
+        /// </summary>
+        public int MaxCount;
 
+        /// <summary>
+        /// Approximate time interval per data (0.1 ~ 1.0 second)
+        /// </summary>
+        public double Interval;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly Object LockObj = new Object();
+
 
         /// <summary>
         /// コンストラクタ
@@ -52,13 +65,13 @@ namespace Aspire
             ZValues = new ObservableCollection<DataPoint>();
 #endif
 
-#if DEBUG_ONLY
+#if DEBUG
             // Initialize plot with dummy data
             for (int i = 0; i < 100; i++)
             {
                 XValues.Add(new DataPoint(i, i));
-#if NOT_USED
                 YValues.Add(new DataPoint(i, i*i));
+#if NOT_USED
                 ZValues.Add(new DataPoint(i, 100*Math.Sin(i*(Math.PI/180))));
 #endif
             }
@@ -71,14 +84,14 @@ namespace Aspire
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        public void AddData(double x, double y, double z)
+        public void AddData(double yVal)
         {
             double ave = 0.0;
             double sum = 0.0;
 
             lock (LockObj)
             {
-                XValues.Add(new DataPoint(XValues.Count, x));
+                XValues.Add(new DataPoint(Interval * XValues.Count, yVal));
 
                 for (int cnt = 0; cnt < XValues.Count; cnt++)
                 {
@@ -88,11 +101,11 @@ namespace Aspire
 
                 Debug.Print("Count:" + XValues.Count);
 
-                YValues.Add(new DataPoint(YValues.Count, ave));
+                YValues.Add(new DataPoint(Interval * YValues.Count, ave));
 #if NOT_USED
                 ZValues.Add(new DataPoint(ZValues.Count, z));
 #endif
-                if (MaxCount == XValues.Count)
+                if (MaxCount == Interval * XValues.Count)
                 {
                     XValues.RemoveAt(0);
                     UpdateIndex(XValues);
@@ -117,7 +130,7 @@ namespace Aspire
             int index = 0;
             for (int cnt = 0; cnt < values.Count; cnt++)
             {
-                values[cnt] = new DataPoint(index, values[cnt].Y);
+                values[cnt] = new DataPoint(Interval * index, values[cnt].Y);
                 index++;
             }
         }
