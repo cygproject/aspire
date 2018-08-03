@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MeasurementSettings.cs" />
     <Compile Include="MeasurementSettingsWindow.xaml.cs">
       <DependentUpon>MeasurementSettingsWindow.xaml</DependentUpon>
     </Compile>

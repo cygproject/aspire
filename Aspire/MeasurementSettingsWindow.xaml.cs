@@ -33,11 +33,16 @@ namespace Aspire
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            var config = SettingsData.Load();
+            cmbInterval.Text = config.MeasurementSettingsData.Interval.ToString();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            var config = SettingsData.Load();
+            config.MeasurementSettingsData.Interval = cmbInterval.Text;
+            config.Save();
+
             // Accept the dialog and return the dialog result
             this.DialogResult = true;
             this.Close();
