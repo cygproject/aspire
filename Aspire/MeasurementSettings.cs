@@ -18,6 +18,6 @@ namespace Aspire
             set { _interval = value; }
         }
 
-        private string _interval = "1000";
+        private string _interval = "100";
     }
 }
