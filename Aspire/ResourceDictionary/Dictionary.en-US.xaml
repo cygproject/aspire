@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Aspire"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="MenuFile">File</system:String>
+    <system:String x:Key="MenuSettings">Settings</system:String>
+    <system:String x:Key="MenuView">View</system:String>
+    <system:String x:Key="MenuHelp">Help</system:String>
     <system:String x:Key="ComSettings">Serial Port Settings</system:String>
     <system:String x:Key="ComPort">Port</system:String>
     <system:String x:Key="ComBaudRate">Baud Rate</system:String>
@@ -9,6 +13,14 @@
     <system:String x:Key="ComParity">Parity</system:String>
     <system:String x:Key="ComStop">Stop</system:String>
     <system:String x:Key="ComFlowControl">Flow Control</system:String>
+    <system:String x:Key="MeasSettings">Measurement Settings</system:String>
+    <system:String x:Key="MeasInterval">Interval (msec)</system:String>
     <system:String x:Key="Save">Save</system:String>
     <system:String x:Key="Cancel">Cancel</system:String>
+    <system:String x:Key="Start">Start</system:String>
+    <system:String x:Key="Stop">Stop</system:String>
+    <system:String x:Key="Clear">Clear</system:String>
+    <system:String x:Key="Exit">Exit</system:String>
+    <system:String x:Key="SerialPort">Serial Port</system:String>
+    <system:String x:Key="Measurement">Measurement</system:String>
 </ResourceDictionary>

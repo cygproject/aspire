@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Aspire"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="MenuFile">ファイル</system:String>
+    <system:String x:Key="MenuSettings">設定</system:String>
+    <system:String x:Key="MenuView">表示</system:String>
+    <system:String x:Key="MenuHelp">ヘルプ</system:String>
     <system:String x:Key="ComSettings">シリアルポート設定</system:String>
     <system:String x:Key="ComPort">ポート</system:String>
     <system:String x:Key="ComBaudRate">ボーレート</system:String>
@@ -9,6 +13,14 @@
     <system:String x:Key="ComParity">パリティー</system:String>
     <system:String x:Key="ComStop">ストップ</system:String>
     <system:String x:Key="ComFlowControl">フロー制御</system:String>
+    <system:String x:Key="MeasSettings">測定設定</system:String>
+    <system:String x:Key="MeasInterval">間隔 (msec)</system:String>
     <system:String x:Key="Save">保存</system:String>
     <system:String x:Key="Cancel">キャンセル</system:String>
+    <system:String x:Key="Start">測定開始</system:String>
+    <system:String x:Key="Stop">測定終了</system:String>
+    <system:String x:Key="Clear">クリア</system:String>
+    <system:String x:Key="Exit">終了</system:String>
+    <system:String x:Key="SerialPort">シリアルポート</system:String>
+    <system:String x:Key="Measurement">測定</system:String>
 </ResourceDictionary>
