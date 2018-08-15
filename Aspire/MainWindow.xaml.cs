@@ -343,31 +343,40 @@ namespace Aspire
             }
             else if (words[0].Equals("ER")) // Response Error
             {
+                // Stop dispatch timer
+                dispatchTimer.Stop();
+
                 if (words[1].Equals("SR"))
                 {
                     if (words[2].Equals(sensor.NoSensorConnectedError))
                     {
                         Debug.Print(sensor.NoSensorConnectedError);
+                        MessageBoxResult result = MessageBox.Show("No sensor connected!", "SENSOR READ ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else if (words[2].Equals(sensor.TimeOutError))
                     {
                         Debug.Print(sensor.TimeOutError);
+                        MessageBoxResult result = MessageBox.Show("Sensor communications error (time-out error)!", "SENSOR READ ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else if (words[2].Equals(sensor.ConnectionError))
                     {
                         Debug.Print(sensor.ConnectionError);
+                        MessageBoxResult result = MessageBox.Show("Connection unit count error!", "SENSOR READ ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else if (words[2].Equals(sensor.IllegalCommandError))
                     {
                         Debug.Print(sensor.IllegalCommandError);
+                        MessageBoxResult result = MessageBox.Show("Illegal command error!", "SENSOR READ ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else if (words[2].Equals(sensor.ParameterError))
                     {
                         Debug.Print(sensor.ParameterError);
+                        MessageBoxResult result = MessageBox.Show("Parameter error!", "SENSOR READ ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
                         Debug.Print("Unknown Error");
+                        MessageBoxResult result = MessageBox.Show("Unknown error!", "SENSOR READ ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else if(words[1].Equals("SW"))
@@ -375,40 +384,42 @@ namespace Aspire
                     if (words[2].Equals(sensor.BankSwitching))
                     {
                         Debug.Print(sensor.BankSwitching);
+                        MessageBoxResult result = MessageBox.Show("Bank Switching error!", "SENSOR WRITE ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else if(words[2].Equals(sensor.LDOffStart))
                     {
                         Debug.Print(sensor.LDOffStart);
+                        MessageBoxResult result = MessageBox.Show("LD OFF Start error!", "SENSOR WRITE ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else if (words[2].Equals(sensor.LDOffEnd))
                     {
                         Debug.Print(sensor.LDOffEnd);
+                        MessageBoxResult result = MessageBox.Show("LD OFF End error!", "SENSOR WRITE ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else if (words[2].Equals(sensor.Bank0HThreshold))
                     {
                         Debug.Print(sensor.Bank0HThreshold);
+                        MessageBoxResult result = MessageBox.Show("BANK0 H error!", "SENSOR WRITE ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else if (words[2].Equals(sensor.Bank0LThreshold))
                     {
                         Debug.Print(sensor.Bank0LThreshold);
-                    }
-                    else if (words[2].Equals(sensor.MeasuredValue))
-                    {
-                        Debug.Print(sensor.MeasuredValue);
-                    }
-                    else if (words[2].Equals(sensor.SoftwareVersion))
-                    {
-                        Debug.Print(sensor.SoftwareVersion);
+                        MessageBoxResult result = MessageBox.Show("BANK0 L error!", "SENSOR WRITE ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
                         Debug.Print("Unknown Error");
+                        MessageBoxResult result = MessageBox.Show("Unknown error!", "SENSOR WRITE ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
                     Debug.Print("Unknown Error");
+                    MessageBoxResult result = MessageBox.Show("Unknown error!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
+                // Restart dispatch timer to continue data aquisition
+                dispatchTimer.Start();
             }
             else
             {
