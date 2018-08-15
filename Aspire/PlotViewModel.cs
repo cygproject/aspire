@@ -33,8 +33,8 @@ namespace Aspire
         public event EventHandler<PlotEventArgs> ActionOccurred;
 #endif
         //データ格納配列
-        public ObservableCollection<DataPoint> XValues { get; private set; }
-        public ObservableCollection<DataPoint> YValues { get; private set; }
+        public ObservableCollection<DataPoint> Data { get; private set; }
+        public ObservableCollection<DataPoint> Average { get; private set; }
 #if NOT_USED
         public ObservableCollection<DataPoint> ZValues { get; private set; }
 #endif
@@ -59,8 +59,8 @@ namespace Aspire
         /// </summary>
         public PlotViewModel()
         {
-            XValues = new ObservableCollection<DataPoint>();
-            YValues = new ObservableCollection<DataPoint>();
+            Data = new ObservableCollection<DataPoint>();
+            Average = new ObservableCollection<DataPoint>();
 #if NOT_USED
             ZValues = new ObservableCollection<DataPoint>();
 #endif
@@ -69,8 +69,8 @@ namespace Aspire
             // Initialize plot with dummy data
             for (int i = 0; i < 100; i++)
             {
-                XValues.Add(new DataPoint(i, i));
-                YValues.Add(new DataPoint(i, i*i));
+                Data.Add(new DataPoint(i, i));
+                Average.Add(new DataPoint(i, i*i));
 #if NOT_USED
                 ZValues.Add(new DataPoint(i, 100*Math.Sin(i*(Math.PI/180))));
 #endif
@@ -91,27 +91,29 @@ namespace Aspire
 
             lock (LockObj)
             {
-                XValues.Add(new DataPoint(Interval * XValues.Count, yVal));
+                Data.Add(new DataPoint(Interval * Data.Count, yVal));
+                Debug.Print("{0},{1}", Data[Data.Count - 1].X, Data[Data.Count - 1].Y);
 
-                for (int cnt = 0; cnt < XValues.Count; cnt++)
+                for (int cnt = 0; cnt < Data.Count; cnt++)
                 {
-                    sum += XValues[cnt].Y;
+                    sum += Data[cnt].Y;
                 }
-                ave = sum / XValues.Count;
+                ave = sum / Data.Count;
 
-                Debug.Print("Count:" + XValues.Count);
+                Debug.Print("Count:" + Data.Count);
 
-                YValues.Add(new DataPoint(Interval * YValues.Count, ave));
+                Average.Add(new DataPoint(Interval * Average.Count, ave));
 #if NOT_USED
                 ZValues.Add(new DataPoint(ZValues.Count, z));
 #endif
-                if (MaxCount == Interval * XValues.Count)
+                if (MaxCount == Interval * Data.Count)
                 {
-                    XValues.RemoveAt(0);
-                    UpdateIndex(XValues);
+                    Data.RemoveAt(0);
+                    
+                    UpdateIndex(Data);
 
-                    YValues.RemoveAt(0);
-                    UpdateIndex(YValues);
+                    Average.RemoveAt(0);
+                    UpdateIndex(Average);
 #if NOT_USED
                     ZValues.RemoveAt(0);
                     UpdateIndex(ZValues);
@@ -140,8 +142,8 @@ namespace Aspire
         /// </summary>
         public void ClearAll()
         {
-            XValues.Clear();
-            YValues.Clear();
+            Data.Clear();
+            Average.Clear();
 #if NOT_USED
             ZValues.Clear();
 #endif
