@@ -176,7 +176,7 @@ namespace Aspire
             enableMeasurement = false;
 #endif
             plotViewModel = DataContext as PlotViewModel;
-            plotViewModel.MaxCount = (HorizontalScaleMax - HorizontalScaleMin);
+            plotViewModel.TimeFrame = (HorizontalScaleMax - HorizontalScaleMin);
             plotViewModel.Interval = measurementInterval / 1000.0;
 #if NOT_USED
             plotViewModel.ActionOccurred += PlotViewModelActionOccurred;
