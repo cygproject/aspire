@@ -658,5 +658,10 @@ namespace Aspire
 
         #endregion
 
+        private void MenuItem_View_ClearGraph_Click(object sender, RoutedEventArgs e)
+        {
+            ClearPlotView();
+        }
+
     }
 }
