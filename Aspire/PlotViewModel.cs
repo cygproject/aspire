@@ -130,11 +130,9 @@ namespace Aspire
         /// <param name="values"></param>
         private void UpdateIndex(ObservableCollection<DataPoint> values)
         {
-            int index = 0;
             for (int cnt = 0; cnt < values.Count; cnt++)
             {
-                values[cnt] = new DataPoint(Interval * index, values[cnt].Y);
-                index++;
+                values[cnt] = new DataPoint(Interval * cnt, values[cnt].Y);
             }
         }
 
