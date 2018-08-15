@@ -9,7 +9,7 @@
         WindowStyle="ToolWindow"
         WindowStartupLocation="CenterOwner"
         mc:Ignorable="d"
-        Title="Measurement Settings" Height="300" Width="300">
+        Title="{StaticResource MeasSettings}" Height="300" Width="300">
 
     <Window.Resources>
         <system:Double x:Key="Margin">4.0</system:Double>
@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Interval"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{StaticResource MeasInterval}"></TextBlock>
             <ComboBox Grid.Row="0" Grid.Column="1" Name="cmbInterval" Margin="{Binding Source={StaticResource Margin}}"></ComboBox>
 
         </Grid>
