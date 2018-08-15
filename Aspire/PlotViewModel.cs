@@ -69,8 +69,8 @@ namespace Aspire
             // Initialize plot with dummy data
             for (int i = 0; i < 100; i++)
             {
-                Data.Add(new DataPoint(i, i));
-                Average.Add(new DataPoint(i, i*i));
+                Data.Add(new DataPoint(i, i * Math.Sin(i)));
+                Average.Add(new DataPoint(i, i * Math.Cos(i)));
 #if NOT_USED
                 ZValues.Add(new DataPoint(i, 100*Math.Sin(i*(Math.PI/180))));
 #endif
