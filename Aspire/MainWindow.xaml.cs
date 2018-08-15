@@ -108,9 +108,10 @@ namespace Aspire
         }
 
         /// <summary>
-        /// Measurement interval in sec (0.1 ~ 1.0)
+        /// Measurement interval per data in msec
+        /// (50.0, 100.0, 200.0, 500.0 or 1000.0 msec)
         /// </summary>
-        private int measurementInterval;
+        private double measurementInterval;
 
         /// <summary>
         /// シリアルポート | Serial port
@@ -159,8 +160,7 @@ namespace Aspire
             InitializeComponent();
 
             var config = SettingsData.Load();
-            measurementInterval = Convert.ToInt16(config.MeasurementSettingsData.Interval);
-
+            measurementInterval = Convert.ToDouble(config.MeasurementSettingsData.Interval);
             measurementRunning = false;
 
 #if USE_DISPATCH_TIMER
