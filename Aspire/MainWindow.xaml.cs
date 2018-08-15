@@ -25,17 +25,17 @@ namespace Aspire
     /// </summary>
     public partial class MainWindow : Window
     {
-        #region 依存プロパティー
+        #region 依存プロパティー | Dependency Properties
 
         /// <summary>
         /// 縦軸の最大値 依存プロパティー | Maximum value on the vertical axis
         /// </summary>
         public static readonly DependencyProperty VerticalScaleMaxProperty =
                 DependencyProperty.Register(
-                    "VerticalScaleMax",             // プロパティ名を指定
-                    typeof(int),                    // プロパティの型を指定
-                    typeof(MainWindow),             // プロパティを所有する型を指定
-                    new PropertyMetadata(999));     // メタデータを指定。ここではデフォルト値を設定してる
+                    "VerticalScaleMax",         // プロパティ名を指定
+                    typeof(int),                // プロパティの型を指定
+                    typeof(MainWindow),         // プロパティを所有する型を指定
+                    new PropertyMetadata(999));  // メタデータを指定。ここではデフォルト値を設定してる
 
         /// <summary>
         /// 縦軸の最小値 依存プロパティー | Minimum value on the vertical axis
@@ -67,7 +67,9 @@ namespace Aspire
                     typeof(MainWindow),
                     new PropertyMetadata(0));
 
-        #endregion 依存プロパティー
+        #endregion 依存プロパティー | Dependency Properties
+
+        #region Properties
 
         /// <summary>
         /// 縦軸スケールの最大値 | Maximum value of vertical scale
@@ -145,6 +147,8 @@ namespace Aspire
         /// 
         /// </summary>
         private PlotViewModel plotViewModel = null;
+
+        #endregion
 
 
         /// <summary>
