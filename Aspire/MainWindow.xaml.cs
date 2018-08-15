@@ -28,7 +28,7 @@ namespace Aspire
         #region 依存プロパティー | Dependency Properties
 
         /// <summary>
-        /// 縦軸の最大値 依存プロパティー | Maximum value on the vertical axis
+        /// 縦軸の最大値 依存プロパティー | Maximum value on the vertical axis (in millimeters)
         /// </summary>
         public static readonly DependencyProperty VerticalScaleMaxProperty =
                 DependencyProperty.Register(
@@ -38,7 +38,7 @@ namespace Aspire
                     new PropertyMetadata(50));  // メタデータを指定。ここではデフォルト値を設定してる
 
         /// <summary>
-        /// 縦軸の最小値 依存プロパティー | Minimum value on the vertical axis
+        /// 縦軸の最小値 依存プロパティー | Minimum value on the vertical axis (in millimeters)
         /// </summary>
         public static readonly DependencyProperty VerticalScaleMinProperty =
                 DependencyProperty.Register(
@@ -48,7 +48,7 @@ namespace Aspire
                     new PropertyMetadata(-50));
 
         /// <summary>
-        /// 横軸の最大値 依存プロパティー | Maximum value on the horizontal axis
+        /// 横軸の最大値 依存プロパティー | Maximum value on the horizontal axis (in seconds)
         /// </summary>
         public static readonly DependencyProperty HorizontalScaleMaxProperty =
                 DependencyProperty.Register(
@@ -58,7 +58,7 @@ namespace Aspire
                     new PropertyMetadata(60));
 
         /// <summary>
-        /// 横軸の最小値 依存プロパティー | Minimum value on the horizontal axis
+        /// 横軸の最小値 依存プロパティー | Minimum value on the horizontal axis (in seconds)
         /// </summary>
         public static readonly DependencyProperty HorizontalScaleMinProperty =
                 DependencyProperty.Register(
@@ -181,9 +181,11 @@ namespace Aspire
 #if NOT_USED
             plotViewModel.ActionOccurred += PlotViewModelActionOccurred;
 #endif
+
             sensor = new ZX2_SF11();
 
             OpenSerialPort();
+
         }
 
         /// <summary>
@@ -458,6 +460,11 @@ namespace Aspire
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartMeasurement_Click(object sender, RoutedEventArgs e)
         {
             var config = SettingsData.Load();
@@ -473,11 +480,21 @@ namespace Aspire
             measurementRunning = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StopMeasurement_Click(object sender, RoutedEventArgs e)
         {
             StopMeasurement();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClearMeasurement_Click(object sender, RoutedEventArgs e)
         {
             ClearPlotView();
