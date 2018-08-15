@@ -39,9 +39,9 @@ namespace Aspire
         public ObservableCollection<DataPoint> ZValues { get; private set; }
 #endif
         /// <summary>
-        /// 最大格納数 | Number of data to store (maximum)
+        /// 最大データ時間枠（秒） | Maximum data time frame (in seconds)
         /// </summary>
-        public int MaxCount;
+        public int TimeFrame;
 
         /// <summary>
         /// Approximate time interval per data (0.1 ~ 1.0 second)
@@ -106,7 +106,7 @@ namespace Aspire
 #if NOT_USED
                 ZValues.Add(new DataPoint(ZValues.Count, z));
 #endif
-                if (MaxCount == Interval * Data.Count)
+                if (TimeFrame <= Interval * Data.Count)
                 {
                     Data.RemoveAt(0);
                     
