@@ -44,7 +44,8 @@ namespace Aspire
         public int TimeFrame;
 
         /// <summary>
-        /// Approximate time interval per data (0.1 ~ 1.0 second)
+        /// Time interval per data in msec
+        /// (50.0, 100.0, 200.0, 500.0 or 1000.0 msec)
         /// </summary>
         public double Interval;
 
