@@ -280,6 +280,7 @@ namespace Aspire
         {
             char[] delimiterChars = { ',' };
             string[] words = data.Split(delimiterChars);
+            double val = 0.0f;
 
             if (words[0].Equals("SR")) // Response OK
             {
@@ -308,15 +309,25 @@ namespace Aspire
                     else if (words[2].Equals(sensor.MeasuredValue))
                     {
                         Debug.Print(sensor.MeasuredValue);
-                        double val = Convert.ToDouble(words[3]);
+                        if (words[3] != "EEE.EEE") // Data is not invalid?
+                        { 
+                            val = Convert.ToDouble(words[3]);
 
-                        // Plot data or save in CSV file...
-                        if (true)
-                        {
+                            // Plot data (or save in CSV file)...
                             this.Dispatcher.BeginInvoke((Action)(() =>
                             {
                                 plotViewModel.AddData(val);
                             }));
+                        }
+                        else
+                        {
+                            // Stop dispatch timer
+                            dispatchTimer.Stop();
+
+                            MessageBoxResult result = MessageBox.Show("[Error-dark] The received light intensity is insufficient. Please use a suitable workpiece.", "E R R O R", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                            // Restart dispatch timer to continue data aquisition
+                            dispatchTimer.Start();
                         }
 
                     }
