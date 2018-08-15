@@ -163,6 +163,11 @@ namespace Aspire
             measurementInterval = Convert.ToDouble(config.MeasurementSettingsData.Interval);
             measurementRunning = false;
 
+            HorizontalScaleMin = Convert.ToInt16(config.DisplaySettingsData.MinX);
+            HorizontalScaleMax = Convert.ToInt16(config.DisplaySettingsData.MaxX);
+            VerticalScaleMin = Convert.ToInt16(config.DisplaySettingsData.MinY);
+            VerticalScaleMax = Convert.ToInt16(config.DisplaySettingsData.MaxY);
+
 #if USE_DISPATCH_TIMER
             dispatchTimer = new DispatcherTimer();
             dispatchTimer.Interval = TimeSpan.FromMilliseconds(measurementInterval);
@@ -663,5 +668,21 @@ namespace Aspire
             ClearPlotView();
         }
 
+        private void MenuItem_View_AdjustGraph_Click(object sender, RoutedEventArgs e)
+        {
+            DisplaySettingsWindow sw = new DisplaySettingsWindow();
+            sw.Owner = this;
+            Nullable<bool> dialogResult = sw.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                var config = SettingsData.Load();
+                HorizontalScaleMin = Convert.ToInt16(config.DisplaySettingsData.MinX);
+                HorizontalScaleMax = Convert.ToInt16(config.DisplaySettingsData.MaxX);
+                VerticalScaleMin = Convert.ToInt16(config.DisplaySettingsData.MinY);
+                VerticalScaleMax = Convert.ToInt16(config.DisplaySettingsData.MaxY);
+            }
+
+        }
     }
 }
