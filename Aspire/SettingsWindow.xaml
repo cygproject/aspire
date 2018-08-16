@@ -4,7 +4,8 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         Loaded="Window_Loaded"
         WindowStyle="ToolWindow"
-        Title="設定" Height="300" Width="300">
+        WindowStartupLocation="CenterOwner"
+        Title="{StaticResource ComSettingsWindowTitle}" Height="300" Width="300">
 
     <Window.Resources>
         <system:Double x:Key="CtlMargin">4.0</system:Double>
@@ -21,32 +22,32 @@
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">ボート</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{StaticResource ComPort}"></TextBlock>
             <ComboBox Grid.Row="0" Grid.Column="1" Name="cmbPortNo" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">ボーレート</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="{StaticResource ComBaudRate}"></TextBlock>
             <ComboBox Grid.Row="1" Grid.Column="1" Name="cmbRate" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
 
-            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">データ</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="{StaticResource ComData}"></TextBlock>
             <ComboBox Grid.Row="2" Grid.Column="1" Name="cmbData" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">パリティ</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="{StaticResource ComParity}"></TextBlock>
             <ComboBox Grid.Row="3" Grid.Column="1" Name="cmbParity" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
 
-            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">ストップ</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="{StaticResource ComStop}"></TextBlock>
             <ComboBox Grid.Row="4" Grid.Column="1" Name="cmbStopBit" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
 
-            <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">フロー制御</TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Text="{StaticResource ComFlowControl}"></TextBlock>
             <ComboBox Grid.Row="5" Grid.Column="1" Name="cmbFlowCtl" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
         </Grid>
 
         <DockPanel VerticalAlignment="Bottom" Margin="10">
-            <Button Width="70" Click="OkButton_Click">OK</Button>
-            <Button Width="70" HorizontalAlignment="Right" Click="CancelButton_Click">Cancel</Button>
+            <Button Width="70" HorizontalAlignment="Right" Click="SaveButton_Click" Content="{StaticResource Save}"></Button>
+            <Button Width="70" HorizontalAlignment="Right" Click="CancelButton_Click" Content="{StaticResource Cancel}"></Button>
         </DockPanel>
     </Grid>
 </Window>

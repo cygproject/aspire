@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Aspire"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+    <system:String x:Key="MenuMeasurement">Measurement</system:String>
+    <system:String x:Key="MenuSettings">Settings</system:String>
+    <system:String x:Key="MenuView">View</system:String>
+    <system:String x:Key="MenuAbout">About</system:String>
+
+    <system:String x:Key="MeasurementConnect">Connect</system:String>
+    <system:String x:Key="MeasurementStart">Start Measurement</system:String>
+    <system:String x:Key="MeasurementStop">Stop Measurement</system:String>
+
+    <system:String x:Key="SettingsSerialPort">Serial Port</system:String>
+    <system:String x:Key="SettingsMeasurement">Measurement</system:String>
+
+    <system:String x:Key="ViewClearGraph">Clear Graph</system:String>
+    <system:String x:Key="ViewAdjustGraph">Adjust Graph</system:String>
+    
+    <system:String x:Key="ComSettingsWindowTitle">Serial Port Settings</system:String>
+    <system:String x:Key="ComPort">Port</system:String>
+    <system:String x:Key="ComBaudRate">Baud Rate</system:String>
+    <system:String x:Key="ComData">Data</system:String>
+    <system:String x:Key="ComParity">Parity</system:String>
+    <system:String x:Key="ComStop">Stop</system:String>
+    <system:String x:Key="ComFlowControl">Flow Control</system:String>
+
+    <system:String x:Key="MeasurementSettingsWindowTitle">Measurement Settings</system:String>
+    <system:String x:Key="MeasurementInterval">Interval (msec)</system:String>
+
+    <system:String x:Key="DisplayWindowTitle">Graph Settings</system:String>
+
+    <system:String x:Key="Save">Save</system:String>
+    <system:String x:Key="Cancel">Cancel</system:String>
+
+    <system:String x:Key="Exit">Exit</system:String>
+
+</ResourceDictionary>

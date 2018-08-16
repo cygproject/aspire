@@ -3,21 +3,89 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:local="clr-namespace:Aspire"
+        Closed="MainWindow_Closed"
         mc:Ignorable="d"
-        Title="Aspire" Height="450" Width="800">
+        Name="PlotWindow"
+        WindowStartupLocation="CenterScreen"
+        Title="Aspire" Height="800" Width="1280">
+
+    <Window.DataContext>
+        <local:PlotViewModel />
+    </Window.DataContext>
+
     <Grid>
-        <Menu Height="20" VerticalAlignment="Top">
-            <MenuItem Header="File">
-                <MenuItem Header="Exit" Click="MenuItem_Exit_Click" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="0.85*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.ColumnSpan="4" Height="20" VerticalAlignment="Top">
+            <MenuItem Header="{StaticResource MenuMeasurement}">
+                <MenuItem Header="{StaticResource MeasurementConnect}" Click="MenuItem_Measurement_Connect_Click" />
+                <Separator />
+                <MenuItem Header="{StaticResource MeasurementStart}" Click="MenuItem_Measurement_Start_Click" />
+                <MenuItem Header="{StaticResource MeasurementStop}" Click="MenuItem_Measurement_Stop_Click" />
+                <Separator />
+                <MenuItem Header="{StaticResource Exit}" Click="MenuItem_Exit_Click" />
             </MenuItem>
-            <MenuItem Header="Settings">
-                <MenuItem Header="Port" Click="MenuItem_Settings_Click" />
+            <MenuItem Header="{StaticResource MenuSettings}">
+                <MenuItem Header="{StaticResource SettingsSerialPort}" Click="MenuItem_Settings_SerialPort_Click" />
+                <MenuItem Header="{StaticResource SettingsMeasurement}" Click="MenuItem_Settings_Measurement_Click" />
             </MenuItem>
-            <MenuItem Header="View">
+            <MenuItem Header="{StaticResource MenuView}">
+                <MenuItem Header="{StaticResource ViewClearGraph}" Click="MenuItem_View_ClearGraph_Click" />
+                <MenuItem Header="{StaticResource ViewAdjustGraph}" Click="MenuItem_View_AdjustGraph_Click" />
             </MenuItem>
-            <MenuItem Header="Help">
+            <MenuItem Header="{StaticResource MenuAbout}">
+                <MenuItem Header="{StaticResource MenuAbout}" Click="MenuItem_About_Click"/>
             </MenuItem>
         </Menu>
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                <Button Name="Start" Content="{StaticResource MeasurementStart}" Margin="10" Width="120" Click="StartMeasurement_Click"/>
+                <Button Name="Stop" Content="{StaticResource MeasurementStop}" Margin="10" Width="120" Click="StopMeasurement_Click" />
+                <Button Name="Clear" Content="{StaticResource ViewClearGraph}" Margin="10" Width="120" Click="ClearMeasurement_Click" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Name="grdGraph" Margin="2">
+            <oxy:Plot Name="PlotView"
+                      Background="White"
+                      PlotAreaBorderColor="Transparent"
+                      LegendBackground="Transparent"
+                      LegendSymbolLength="20"
+                      LegendTextColor="Black"
+                      LegendTitle="Amplitude"
+                      LegendTitleColor="Blue">
+                <oxy:Plot.Series>
+                    <oxy:LineSeries Name="lineSeriesX" ItemsSource="{Binding Data}" Color="Blue" />
+                    <oxy:LineSeries Name="lineSeriesY" ItemsSource="{Binding Average}" Color="Red" LineStyle="Dot"/>
+                    <oxy:LineSeries Name="lineSeriesZ" ItemsSource="{Binding ZValues}" Color="LightGreen" />
+                </oxy:Plot.Series>
+
+                <oxy:Plot.Axes>
+                    <oxy:LinearAxis Position="Left" AxislineColor="Gray"
+                                    Maximum="{Binding ElementName=PlotWindow, Path=VerticalScaleMax}"
+                                    Minimum="{Binding ElementName=PlotWindow, Path=VerticalScaleMin}"
+                                    MajorGridlineStyle="Solid" MajorGridlineColor="Gray"
+                                    MinorGridlineStyle="Dot" MinorGridlineColor="Gray" />
+
+                    <oxy:LinearAxis Position="Bottom"
+                                    Maximum="{Binding ElementName=PlotWindow, Path=HorizontalScaleMax}"
+                                    Minimum="{Binding ElementName=PlotWindow, Path=HorizontalScaleMin}"
+                                    MajorGridlineStyle="Solid" MajorGridlineColor="Gray"
+                                    MinorGridlineStyle="Dot" MinorGridlineColor="Gray" />
+                </oxy:Plot.Axes>
+            </oxy:Plot>
+        </Grid>
+
     </Grid>
 </Window>

@@ -5,6 +5,11 @@
              Startup="ApplicationStartup"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aspire;component/ResourceDictionary/Dictionary.ja-JP.xaml" />
+                <ResourceDictionary Source="/Aspire;component/ResourceDictionary/Dictionary.en-US.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

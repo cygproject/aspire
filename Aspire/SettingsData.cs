@@ -19,6 +19,16 @@ namespace Aspire
         public SerialPortSettings SerialPortSettingsData { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public MeasurementSettings MeasurementSettingsData { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DisplaySettings DisplaySettingsData { get; set; }
+
+        /// <summary>
         ///
         /// </summary>
         private const string SETTINGS_XML_FILE_NAME = "Settings.xml";
@@ -96,6 +106,8 @@ namespace Aspire
         {
             //シングルトン
             SerialPortSettingsData = new SerialPortSettings();
+            MeasurementSettingsData = new MeasurementSettings();
+            DisplaySettingsData = new DisplaySettings();
         }
     }
 }

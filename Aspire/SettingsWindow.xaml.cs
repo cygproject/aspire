@@ -53,6 +53,13 @@ namespace Aspire
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+#if false
+            // Center window with respect to MainWindow
+            Application curApp = Application.Current;
+            Window mainWindow = curApp.MainWindow;
+            this.Left = mainWindow.Left + (mainWindow.Width - this.ActualWidth) / 2;
+            this.Top = mainWindow.Top + (mainWindow.Height - this.ActualHeight) / 
+#endif
             var config = SettingsData.Load();
             cmbPortNo.Text = config.SerialPortSettingsData.PortNum;
             cmbRate.Text = config.SerialPortSettingsData.BaudRate.ToString();
@@ -64,11 +71,12 @@ namespace Aspire
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            IsCancel = true;
+            // Accept the dialog and return the dialog result
+            this.DialogResult = false;
             this.Close();
         }
 
-        private void OkButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             var config = SettingsData.Load();
             config.SerialPortSettingsData.PortNum = cmbPortNo.Text;
@@ -79,8 +87,10 @@ namespace Aspire
             config.SerialPortSettingsData.FlowControl = (Handshake)Enum.Parse(typeof(Handshake), cmbFlowCtl.Text);
             config.Save();
 
-            IsCancel = false;
+            // Accept the dialog and return the dialog result
+            this.DialogResult = true;
             this.Close();
+
         }
     }
 }
