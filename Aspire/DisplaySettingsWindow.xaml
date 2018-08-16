@@ -9,7 +9,7 @@
         WindowStyle="ToolWindow"
         WindowStartupLocation="CenterOwner"
         mc:Ignorable="d"
-        Title="Display Settings" Height="300" Width="300">
+        Title="{StaticResource DisplayWindowTitle}" Height="300" Width="300">
 
     <Window.Resources>
         <system:Double x:Key="Margin">4.0</system:Double>
