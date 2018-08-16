@@ -11,26 +11,14 @@ namespace Aspire
         /// <summary>
         /// 
         /// </summary>
-        [System.Xml.Serialization.XmlElement("MaxY")]
-        public string MaxY
+        [System.Xml.Serialization.XmlElement("MinX")]
+        public string MinX
         {
-            get { return _maxY; }
-            set { _maxY = value; }
+            get { return _minX; }
+            set { _minX = value; }
         }
 
-        private string _maxY = "30";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [System.Xml.Serialization.XmlElement("MinY")]
-        public string MinY
-        {
-            get { return _minY; }
-            set { _minY = value; }
-        }
-
-        private string _minY = "-30";
+        private string _minX = "0";
 
         /// <summary>
         /// 
@@ -47,13 +35,25 @@ namespace Aspire
         /// <summary>
         /// 
         /// </summary>
-        [System.Xml.Serialization.XmlElement("MinX")]
-        public string MinX
+        [System.Xml.Serialization.XmlElement("MinY")]
+        public string MinY
         {
-            get { return _minX; }
-            set { _minX = value; }
+            get { return _minY; }
+            set { _minY = value; }
         }
 
-        private string _minX = "0";
+        private string _minY = "-30";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [System.Xml.Serialization.XmlElement("MaxY")]
+        public string MaxY
+        {
+            get { return _maxY; }
+            set { _maxY = value; }
+        }
+
+        private string _maxY = "30";
     }
 }
