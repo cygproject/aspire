@@ -111,7 +111,7 @@ namespace Aspire
         /// Measurement interval per data in msec
         /// (50.0, 100.0, 200.0, 500.0 or 1000.0 msec)
         /// </summary>
-        private double measurementInterval;
+        private double measurementInterval = 100.0;
 
         /// <summary>
         /// シリアルポート | Serial port
@@ -142,7 +142,7 @@ namespace Aspire
         /// <summary>
         /// 
         /// </summary>
-        private bool measurementRunning;
+        private bool measurementRunning = false;
 
         /// <summary>
         /// 
