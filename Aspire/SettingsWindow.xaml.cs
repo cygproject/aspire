@@ -71,7 +71,8 @@ namespace Aspire
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            IsCancel = true;
+            // Accept the dialog and return the dialog result
+            this.DialogResult = false;
             this.Close();
         }
 
@@ -86,8 +87,10 @@ namespace Aspire
             config.SerialPortSettingsData.FlowControl = (Handshake)Enum.Parse(typeof(Handshake), cmbFlowCtl.Text);
             config.Save();
 
-            IsCancel = false;
+            // Accept the dialog and return the dialog result
+            this.DialogResult = true;
             this.Close();
+
         }
     }
 }
