@@ -59,8 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DisplaySettings.cs" />
-    <Compile Include="DisplaySettingsWindow.xaml.cs">
+    <Compile Include="ToolWindows\DisplaySettings.cs" />
+    <Compile Include="ToolWindows\DisplaySettingsWindow.xaml.cs">
       <DependentUpon>DisplaySettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\MeasurementSettings.cs" />
@@ -74,7 +74,7 @@
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ZX2-SF11.cs" />
-    <Page Include="DisplaySettingsWindow.xaml">
+    <Page Include="ToolWindows\DisplaySettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
