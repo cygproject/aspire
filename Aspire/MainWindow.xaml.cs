@@ -213,6 +213,7 @@ namespace Aspire
             CloseSerialPort();
         }
 
+        /// <summary>
         /// Opens a new serial port connection.
         /// </summary>
         private void OpenSerialPort()
@@ -438,11 +439,51 @@ namespace Aspire
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_Measurement_Connect_Click(object sender, RoutedEventArgs e)
+        {
+            OpenSerialPort();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_Measurement_Start_Click(object sender, RoutedEventArgs e)
+        {
+            StartMeasurement_Click(null, null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_Measurement_Stop_Click(object sender, RoutedEventArgs e)
+        {
+            StopMeasurement();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_Settings_SerialPort_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow sw = new SettingsWindow();
@@ -459,7 +500,12 @@ namespace Aspire
             }
         }
 
-        private void MenuItem_Measurement_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_Settings_Measurement_Click(object sender, RoutedEventArgs e)
         {
             MeasurementSettingsWindow sw = new MeasurementSettingsWindow();
             sw.Owner = this;
@@ -561,6 +607,48 @@ namespace Aspire
             enableMeasurement = false;
 #endif
             plotViewModel.ClearAll();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_View_ClearGraph_Click(object sender, RoutedEventArgs e)
+        {
+            ClearPlotView();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_View_AdjustGraph_Click(object sender, RoutedEventArgs e)
+        {
+            DisplaySettingsWindow sw = new DisplaySettingsWindow();
+            sw.Owner = this;
+            Nullable<bool> dialogResult = sw.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                var config = SettingsData.Load();
+                HorizontalScaleMin = Convert.ToInt16(config.DisplaySettingsData.MinX);
+                HorizontalScaleMax = Convert.ToInt16(config.DisplaySettingsData.MaxX);
+                VerticalScaleMin = Convert.ToInt16(config.DisplaySettingsData.MinY);
+                VerticalScaleMax = Convert.ToInt16(config.DisplaySettingsData.MaxY);
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_About_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         #region For Test Only
@@ -719,26 +807,5 @@ namespace Aspire
 
         #endregion
 
-        private void MenuItem_View_ClearGraph_Click(object sender, RoutedEventArgs e)
-        {
-            ClearPlotView();
-        }
-
-        private void MenuItem_View_AdjustGraph_Click(object sender, RoutedEventArgs e)
-        {
-            DisplaySettingsWindow sw = new DisplaySettingsWindow();
-            sw.Owner = this;
-            Nullable<bool> dialogResult = sw.ShowDialog();
-
-            if (dialogResult == true)
-            {
-                var config = SettingsData.Load();
-                HorizontalScaleMin = Convert.ToInt16(config.DisplaySettingsData.MinX);
-                HorizontalScaleMax = Convert.ToInt16(config.DisplaySettingsData.MaxX);
-                VerticalScaleMin = Convert.ToInt16(config.DisplaySettingsData.MinY);
-                VerticalScaleMax = Convert.ToInt16(config.DisplaySettingsData.MaxY);
-            }
-
-        }
     }
 }
