@@ -27,29 +27,32 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.ColumnSpan="4" Height="20" VerticalAlignment="Top">
-            <MenuItem Header="{StaticResource MenuFile}">
-                <MenuItem Header="Connect" Click="MenuItem_Connect_Click" />
+            <MenuItem Header="{StaticResource MenuMeasurement}">
+                <MenuItem Header="{StaticResource MeasurementConnect}" Click="MenuItem_Measurement_Connect_Click" />
+                <Separator />
+                <MenuItem Header="{StaticResource MeasurementStart}" Click="MenuItem_Measurement_Start_Click" />
+                <MenuItem Header="{StaticResource MeasurementStop}" Click="MenuItem_Measurement_Stop_Click" />
                 <Separator />
                 <MenuItem Header="{StaticResource Exit}" Click="MenuItem_Exit_Click" />
             </MenuItem>
             <MenuItem Header="{StaticResource MenuSettings}">
-                <MenuItem Header="{StaticResource SerialPort}" Click="MenuItem_Settings_Click" />
-                <MenuItem Header="{StaticResource Measurement}" Click="MenuItem_Measurement_Click" />
+                <MenuItem Header="{StaticResource SettingsSerialPort}" Click="MenuItem_Settings_SerialPort_Click" />
+                <MenuItem Header="{StaticResource SettingsMeasurement}" Click="MenuItem_Settings_Measurement_Click" />
             </MenuItem>
             <MenuItem Header="{StaticResource MenuView}">
-                <MenuItem Header="Clear Graph" Click="MenuItem_View_ClearGraph_Click" />
-                <MenuItem Header="Adjust Graph" Click="MenuItem_View_AdjustGraph_Click" />
+                <MenuItem Header="{StaticResource ViewClearGraph}" Click="MenuItem_View_ClearGraph_Click" />
+                <MenuItem Header="{StaticResource ViewAdjustGraph}" Click="MenuItem_View_AdjustGraph_Click" />
             </MenuItem>
-            <MenuItem Header="{StaticResource MenuHelp}">
-                <MenuItem Header="About Aspire" />
+            <MenuItem Header="{StaticResource MenuAbout}">
+                <MenuItem Header="{StaticResource MenuAbout}" Click="MenuItem_About_Click"/>
             </MenuItem>
         </Menu>
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                <Button Name="Start" Content="{StaticResource Start}" Margin="10" Width="120" Click="StartMeasurement_Click"/>
-                <Button Name="Stop" Content="{StaticResource Stop}" Margin="10" Width="120" Click="StopMeasurement_Click" />
-                <Button Name="Clear" Content="{StaticResource Clear}" Margin="10" Width="120" Click="ClearMeasurement_Click" />
+                <Button Name="Start" Content="{StaticResource MeasurementStart}" Margin="10" Width="120" Click="StartMeasurement_Click"/>
+                <Button Name="Stop" Content="{StaticResource MeasurementStop}" Margin="10" Width="120" Click="StopMeasurement_Click" />
+                <Button Name="Clear" Content="{StaticResource ViewClearGraph}" Margin="10" Width="120" Click="ClearMeasurement_Click" />
             </StackPanel>
         </Grid>
 
