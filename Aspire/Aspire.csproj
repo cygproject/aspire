@@ -68,9 +68,9 @@
       <DependentUpon>MeasurementSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PlotViewModel.cs" />
-    <Compile Include="SerialPortSettings.cs" />
+    <Compile Include="ToolWindows\SerialPortSettings.cs" />
     <Compile Include="SettingsData.cs" />
-    <Compile Include="SettingsWindow.xaml.cs">
+    <Compile Include="ToolWindows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ZX2-SF11.cs" />
@@ -102,7 +102,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsWindow.xaml">
+    <Page Include="ToolWindows\SettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
