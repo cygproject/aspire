@@ -24,6 +24,7 @@ namespace Aspire
             InitializeComponent();
 
             cmbInterval.ItemsSource = new string[] {
+                "50",
                 "100",
                 "200",
                 "500",
