@@ -217,30 +217,38 @@ namespace Aspire
         /// </summary>
         private void OpenSerialPort()
         {
-            var config = SettingsData.Load();
-            serialPort = new SerialPort(config.SerialPortSettingsData.PortNum);
-            serialPort.BaudRate = config.SerialPortSettingsData.BaudRate;
-            serialPort.Parity = config.SerialPortSettingsData.Parity;
-            serialPort.StopBits = config.SerialPortSettingsData.StopBit;
-            serialPort.DataBits = config.SerialPortSettingsData.Databit;
-            serialPort.Handshake = config.SerialPortSettingsData.FlowControl;
-
-            // Data received event
-            serialPort.DataReceived += new SerialDataReceivedEventHandler(SerialDataReceivedHandler);
-
-            try
+            if (serialPort != null)
             {
-                serialPort.Open();
+                MessageBox.Show("Serial port is already opened!", "Serial Port", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch (Exception e)
-            {
-                var asmatt = (System.Reflection.AssemblyTitleAttribute)Attribute.GetCustomAttribute(System.Reflection.Assembly.GetExecutingAssembly(),
-                                                                                                    typeof(System.Reflection.AssemblyTitleAttribute));
-                MessageBox.Show(e.Message, asmatt.Title, MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            { 
+                var config = SettingsData.Load();
+                serialPort = new SerialPort(config.SerialPortSettingsData.PortNum);
+                serialPort.BaudRate = config.SerialPortSettingsData.BaudRate;
+                serialPort.Parity = config.SerialPortSettingsData.Parity;
+                serialPort.StopBits = config.SerialPortSettingsData.StopBit;
+                serialPort.DataBits = config.SerialPortSettingsData.Databit;
+                serialPort.Handshake = config.SerialPortSettingsData.FlowControl;
 
-                serialPort.Dispose();
-                serialPort = null;
+                // Data received event
+                serialPort.DataReceived += new SerialDataReceivedEventHandler(SerialDataReceivedHandler);
+
+                try
+                {
+                    serialPort.Open();
+                }
+                catch (Exception e)
+                {
+                    var asmatt = (System.Reflection.AssemblyTitleAttribute)Attribute.GetCustomAttribute(System.Reflection.Assembly.GetExecutingAssembly(),
+                                                                                                        typeof(System.Reflection.AssemblyTitleAttribute));
+                    MessageBox.Show(e.Message, asmatt.Title, MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    serialPort.Dispose();
+                    serialPort = null;
+                }
             }
+
         }
 
         /// <summary>
@@ -435,11 +443,20 @@ namespace Aspire
             Application.Current.Shutdown();
         }
 
-        private void MenuItem_Settings_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Settings_SerialPort_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow sw = new SettingsWindow();
             sw.Owner = this;
-            sw.ShowDialog();
+            Nullable<bool> dialogResult = sw.ShowDialog();
+
+            if (dialogResult == true)
+            {
+                // Close old serial port
+                CloseSerialPort();
+
+                // Open new serial port
+                OpenSerialPort();
+            }
         }
 
         private void MenuItem_Measurement_Click(object sender, RoutedEventArgs e)
