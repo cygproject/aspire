@@ -5,7 +5,7 @@
         Loaded="Window_Loaded"
         WindowStyle="ToolWindow"
         WindowStartupLocation="CenterOwner"
-        Title="{StaticResource ComSettings}" Height="300" Width="300">
+        Title="{StaticResource ComSettingsWindowTitle}" Height="300" Width="300">
 
     <Window.Resources>
         <system:Double x:Key="CtlMargin">4.0</system:Double>
