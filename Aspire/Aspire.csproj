@@ -59,22 +59,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DisplaySettings.cs" />
-    <Compile Include="DisplaySettingsWindow.xaml.cs">
+    <Compile Include="ToolWindows\DisplaySettings.cs" />
+    <Compile Include="ToolWindows\DisplaySettingsWindow.xaml.cs">
       <DependentUpon>DisplaySettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MeasurementSettings.cs" />
-    <Compile Include="MeasurementSettingsWindow.xaml.cs">
+    <Compile Include="ToolWindows\MeasurementSettings.cs" />
+    <Compile Include="ToolWindows\MeasurementSettingsWindow.xaml.cs">
       <DependentUpon>MeasurementSettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PlotViewModel.cs" />
-    <Compile Include="SerialPortSettings.cs" />
+    <Compile Include="ToolWindows\SerialPortSettings.cs" />
     <Compile Include="SettingsData.cs" />
-    <Compile Include="SettingsWindow.xaml.cs">
+    <Compile Include="ToolWindows\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ZX2-SF11.cs" />
-    <Page Include="DisplaySettingsWindow.xaml">
+    <Page Include="ToolWindows\DisplaySettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -90,7 +90,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MeasurementSettingsWindow.xaml">
+    <Page Include="ToolWindows\MeasurementSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -102,7 +102,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsWindow.xaml">
+    <Page Include="ToolWindows\SettingsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
