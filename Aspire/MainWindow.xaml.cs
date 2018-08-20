@@ -186,6 +186,12 @@ namespace Aspire
 
             OpenSerialPort();
 
+            MenuMeasurementStart.IsEnabled = true;
+            MenuMeasurementStop.IsEnabled = false;
+
+            StartButton.IsEnabled = true;
+            StopButton.IsEnabled = false;
+
         }
 
         /// <summary>
@@ -541,6 +547,12 @@ namespace Aspire
             measureThread.Start();
 #endif
             measurementRunning = true;
+
+            MenuMeasurementStart.IsEnabled = false;
+            MenuMeasurementStop.IsEnabled = true;
+
+            StartButton.IsEnabled = false;
+            StopButton.IsEnabled = true;
         }
 
         /// <summary>
@@ -594,6 +606,12 @@ namespace Aspire
             enableMeasurement = false;
 #endif
             measurementRunning = false;
+
+            MenuMeasurementStart.IsEnabled = true;
+            MenuMeasurementStop.IsEnabled = false;
+
+            StartButton.IsEnabled = true;
+            StopButton.IsEnabled = false;
         }
 
         /// <summary>
