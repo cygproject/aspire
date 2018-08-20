@@ -45,9 +45,9 @@
             <ComboBox Grid.Row="5" Grid.Column="1" Name="cmbFlowCtl" Margin="{Binding Source={StaticResource CtlMargin}}"></ComboBox>
         </Grid>
 
-        <DockPanel VerticalAlignment="Bottom" Margin="10">
-            <Button Width="70" HorizontalAlignment="Right" Click="SaveButton_Click" Content="{StaticResource Save}"></Button>
-            <Button Width="70" HorizontalAlignment="Right" Click="CancelButton_Click" Content="{StaticResource Cancel}"></Button>
-        </DockPanel>
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="10">
+            <Button Width="80" Margin="10,0" Click="SaveButton_Click" Content="{StaticResource Save}"></Button>
+            <Button Width="80" Margin="10,0" Click="CancelButton_Click" Content="{StaticResource Cancel}"></Button>
+        </StackPanel>
     </Grid>
 </Window>
