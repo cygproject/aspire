@@ -20,34 +20,34 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
+                <RowDefinition Height="10" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="10" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Min X"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Min X (sec)"></TextBlock>
             <ComboBox Grid.Row="0" Grid.Column="1" Name="cmbMinX" Margin="{Binding Source={StaticResource Margin}}"></ComboBox>
-            
-            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Max X"></TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Max X (sec)"></TextBlock>
             <ComboBox Grid.Row="1" Grid.Column="1" Name="cmbMaxX" Margin="{Binding Source={StaticResource Margin}}"></ComboBox>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Min Y"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Text="Min Y (mm)"></TextBlock>
             <ComboBox Grid.Row="3" Grid.Column="1" Name="cmbMinY" Margin="{Binding Source={StaticResource Margin}}"></ComboBox>
-            
-            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Max Y"></TextBlock>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="Max Y (mm)"></TextBlock>
             <ComboBox Grid.Row="4" Grid.Column="1" Name="cmbMaxY" Margin="{Binding Source={StaticResource Margin}}"></ComboBox>
 
         </Grid>
 
-        <DockPanel VerticalAlignment="Bottom" Margin="10">
-            <Button Width="70" HorizontalAlignment="Right" Click="SaveButton_Click" Content="{StaticResource Save}"></Button>
-            <Button Width="70" HorizontalAlignment="Right" Click="CancelButton_Click" Content="{StaticResource Cancel}"></Button>
-        </DockPanel>
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="10">
+            <Button Width="80" Margin="10,0" Click="SaveButton_Click" Content="{StaticResource Save}"></Button>
+            <Button Width="80" Margin="10,0" Click="CancelButton_Click" Content="{StaticResource Cancel}"></Button>
+        </StackPanel>
 
     </Grid>
 </Window>
