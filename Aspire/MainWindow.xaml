@@ -30,8 +30,8 @@
             <MenuItem Header="{StaticResource MenuMeasurement}">
                 <MenuItem Header="{StaticResource MeasurementConnect}" Click="MenuItem_Measurement_Connect_Click" />
                 <Separator />
-                <MenuItem Header="{StaticResource MeasurementStart}" Click="MenuItem_Measurement_Start_Click" />
-                <MenuItem Header="{StaticResource MeasurementStop}" Click="MenuItem_Measurement_Stop_Click" />
+                <MenuItem Name="MenuMeasurementStart" Header="{StaticResource MeasurementStart}" Click="MenuItem_Measurement_Start_Click" />
+                <MenuItem Name="MenuMeasurementStop" Header="{StaticResource MeasurementStop}" Click="MenuItem_Measurement_Stop_Click" />
                 <Separator />
                 <MenuItem Header="{StaticResource Exit}" Click="MenuItem_Exit_Click" />
             </MenuItem>
@@ -50,9 +50,9 @@
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                <Button Name="Start" Content="{StaticResource MeasurementStart}" Margin="10" Width="120" Click="StartMeasurement_Click"/>
-                <Button Name="Stop" Content="{StaticResource MeasurementStop}" Margin="10" Width="120" Click="StopMeasurement_Click" />
-                <Button Name="Clear" Content="{StaticResource ViewClearGraph}" Margin="10" Width="120" Click="ClearMeasurement_Click" />
+                <Button Name="StartButton" Content="{StaticResource MeasurementStart}" Margin="10" Width="120" Click="StartMeasurement_Click"/>
+                <Button Name="StopButton" Content="{StaticResource MeasurementStop}" Margin="10" Width="120" Click="StopMeasurement_Click" />
+                <Button Name="ClearButton" Content="{StaticResource ViewClearGraph}" Margin="10" Width="120" Click="ClearMeasurement_Click" />
             </StackPanel>
         </Grid>
 
@@ -63,11 +63,11 @@
                       LegendBackground="Transparent"
                       LegendSymbolLength="20"
                       LegendTextColor="Black"
-                      LegendTitle="Amplitude"
-                      LegendTitleColor="Blue">
+                      LegendTitle="Legend"
+                      LegendTitleColor="Black">
                 <oxy:Plot.Series>
-                    <oxy:LineSeries Name="lineSeriesX" ItemsSource="{Binding Data}" Color="Blue" />
-                    <oxy:LineSeries Name="lineSeriesY" ItemsSource="{Binding Average}" Color="Red" LineStyle="Dot"/>
+                    <oxy:LineSeries Name="lineSeriesX" ItemsSource="{Binding Data}" Color="Blue" Title="Data (mm)"/>
+                    <oxy:LineSeries Name="lineSeriesY" ItemsSource="{Binding Average}" Color="Red" Title="Average" LineStyle="Dot"/>
                     <oxy:LineSeries Name="lineSeriesZ" ItemsSource="{Binding ZValues}" Color="LightGreen" />
                 </oxy:Plot.Series>
 
