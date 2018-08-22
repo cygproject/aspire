@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -17,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using CsvHelper;
 
 namespace Aspire
 {
@@ -149,6 +151,17 @@ namespace Aspire
         /// </summary>
         private PlotViewModel plotViewModel = null;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private SettingsData config;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private StreamWriter writer;
+        private CsvWriter csv;
+
         #endregion
 
 
@@ -159,7 +172,7 @@ namespace Aspire
         {
             InitializeComponent();
 
-            var config = SettingsData.Load();
+            config = SettingsData.Load();
             measurementInterval = Convert.ToDouble(config.MeasurementSettingsData.Interval);
             measurementRunning = false;
 
@@ -185,6 +198,11 @@ namespace Aspire
             sensor = new ZX2_SF11();
 
             OpenSerialPort();
+
+            writer = File.CreateText("data.csv");
+            csv = new CsvWriter(writer);
+            csv.Configuration.HasHeaderRecord = false;
+            csv.Configuration.Delimiter = ",";
 
             MenuMeasurementStart.IsEnabled = true;
             MenuMeasurementStop.IsEnabled = false;
@@ -329,6 +347,12 @@ namespace Aspire
                         if (words[3] != "EEE.EEE") // Data is not invalid?
                         { 
                             val = Convert.ToDouble(words[3]);
+
+                            if (config.MeasurementSettingsData.LogEnabled == "true")
+                            {
+                                csv.WriteField(val);
+                                csv.NextRecord();
+                            }
 
                             // Plot data (or save in CSV file)...
                             this.Dispatcher.BeginInvoke((Action)(() =>
@@ -612,6 +636,8 @@ namespace Aspire
 
             StartButton.IsEnabled = true;
             StopButton.IsEnabled = false;
+
+            writer.Close();
         }
 
         /// <summary>
