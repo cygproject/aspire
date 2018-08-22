@@ -30,18 +30,25 @@ namespace Aspire
                 "500",
                 "1000"
             };
+
+            cmbEnableLog.ItemsSource = new string[] {
+                "true",
+                "false",
+            };
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var config = SettingsData.Load();
             cmbInterval.Text = config.MeasurementSettingsData.Interval.ToString();
+            cmbEnableLog.Text = config.MeasurementSettingsData.LogEnabled.ToString();
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             var config = SettingsData.Load();
             config.MeasurementSettingsData.Interval = cmbInterval.Text;
+            config.MeasurementSettingsData.LogEnabled = cmbEnableLog.Text;
             config.Save();
 
             // Accept the dialog and return the dialog result
