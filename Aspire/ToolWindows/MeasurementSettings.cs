@@ -19,5 +19,17 @@ namespace Aspire
         }
 
         private string _interval = "100";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [System.Xml.Serialization.XmlElement("LogEnabled")]
+        public string LogEnabled
+        {
+            get { return _logEnabled; }
+            set { _logEnabled = value; }
+        }
+
+        private string _logEnabled = "false";
     }
 }
