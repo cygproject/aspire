@@ -19,9 +19,9 @@
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
+                <RowDefinition Height="10" />
                 <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="10" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
@@ -33,6 +33,9 @@
             <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{StaticResource MeasurementInterval}"></TextBlock>
             <ComboBox Grid.Row="0" Grid.Column="1" Name="cmbInterval" Margin="{Binding Source={StaticResource Margin}}"></ComboBox>
 
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="Enable Log"></TextBlock>
+            <ComboBox Grid.Row="2" Grid.Column="1" Name="cmbEnableLog" Margin="{Binding Source={StaticResource Margin}}"></ComboBox>
+            
         </Grid>
 
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal" Margin="10">
