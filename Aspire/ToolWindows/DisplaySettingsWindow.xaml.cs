@@ -36,10 +36,8 @@ namespace Aspire
 
             cmbMinY.ItemsSource = new string[] {
                 "-10",
-                "-20",
-                "-30",
-                "-40",
-                "-50"
+                "0",
+                "-10",
             };
 
             cmbMaxY.ItemsSource = new string[] {
