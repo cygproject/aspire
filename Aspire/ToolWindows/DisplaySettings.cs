@@ -42,7 +42,7 @@ namespace Aspire
             set { _minY = value; }
         }
 
-        private string _minY = "-30";
+        private string _minY = "0";
 
         /// <summary>
         /// 
@@ -54,6 +54,6 @@ namespace Aspire
             set { _maxY = value; }
         }
 
-        private string _maxY = "30";
+        private string _maxY = "15";
     }
 }
