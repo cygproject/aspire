@@ -106,19 +106,20 @@ namespace Aspire
             {
                 Data.Add(new DataPoint(Interval * Data.Count, yVal));
                 Debug.Print("{0},{1}", Data[Data.Count - 1].X, Data[Data.Count - 1].Y);
+#if ENABLE_AVERAGE
+            for (int cnt = 0; cnt < Data.Count; cnt++)
+            {
+                sum += Data[cnt].Y;
+            }
+            ave = sum / Data.Count;
 
-                for (int cnt = 0; cnt < Data.Count; cnt++)
-                {
-                    sum += Data[cnt].Y;
-                }
-                ave = sum / Data.Count;
-
-                Debug.Print("Count:" + Data.Count);
-
-                Average.Add(new DataPoint(Interval * Average.Count, ave));
+            Debug.Print("Count:" + Data.Count);
+            Average.Add(new DataPoint(Interval * Average.Count, ave));
 #if NOT_USED
                 ZValues.Add(new DataPoint(ZValues.Count, z));
 #endif
+#endif
+
                 if (TimeFrame <= Interval * Data.Count)
                 {
                     Data.RemoveAt(0);
