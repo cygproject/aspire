@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -164,6 +165,7 @@ namespace Aspire
         private int dataCount;
         #endregion
 
+        private static System.Timers.Timer aTimer;
 
         /// <summary>
         /// 
@@ -206,6 +208,23 @@ namespace Aspire
             StartButton.IsEnabled = true;
             StopButton.IsEnabled = false;
 
+        }
+
+        private void SetTimer()
+        {
+            // Create a 30 second timer 
+            aTimer = new System.Timers.Timer(30000);
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = false;
+            aTimer.Enabled = true;
+        }
+
+        // Specify what you want to happen when the Elapsed event is raised.
+        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            aTimer.Enabled = false;
+            StopMeasurement();
         }
 
         /// <summary>
@@ -558,18 +577,6 @@ namespace Aspire
         /// <param name="e"></param>
         private void StartMeasurement_Click(object sender, RoutedEventArgs e)
         {
-            var config = SettingsData.Load();
-            measurementInterval = Convert.ToInt16(config.MeasurementSettingsData.Interval);
-            plotViewModel.Interval = measurementInterval / 1000.0;
-#if USE_DISPATCH_TIMER
-            dispatchTimer.Interval = TimeSpan.FromMilliseconds(measurementInterval);
-            dispatchTimer.Start();
-#else
-            measureThread = new System.Threading.Thread(new System.Threading.ThreadStart(StartMeasurement));
-            measureThread.Start();
-#endif
-            measurementRunning = true;
-
             writer = File.CreateText("data.csv");
             csv = new CsvWriter(writer);
             csv.Configuration.HasHeaderRecord = false;
@@ -580,6 +587,21 @@ namespace Aspire
 
             StartButton.IsEnabled = false;
             StopButton.IsEnabled = true;
+
+            var config = SettingsData.Load();
+            measurementInterval = Convert.ToInt16(config.MeasurementSettingsData.Interval);
+            plotViewModel.Interval = measurementInterval / 1000.0;
+#if USE_DISPATCH_TIMER
+            dispatchTimer.Interval = TimeSpan.FromMilliseconds(measurementInterval);
+            dispatchTimer.Start();
+#else
+            measureThread = new System.Threading.Thread(new System.Threading.ThreadStart(StartMeasurement));
+            measureThread.Start();
+#endif
+            // TODO: Timer starts here...
+            SetTimer();
+
+            measurementRunning = true;
         }
 
         /// <summary>
