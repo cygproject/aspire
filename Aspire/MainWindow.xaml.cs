@@ -350,12 +350,13 @@ namespace Aspire
                                 csv.WriteField(val);
                                 csv.NextRecord();
                             }
-
+#if ENABLE_DATA_PLOTTING
                             // Plot data (or save in CSV file)...
                             this.Dispatcher.BeginInvoke((Action)(() =>
                             {
                                 plotViewModel.AddData(val);
                             }));
+#endif
                         }
                         else
                         {
