@@ -199,11 +199,6 @@ namespace Aspire
 
             OpenSerialPort();
 
-            writer = File.CreateText("data.csv");
-            csv = new CsvWriter(writer);
-            csv.Configuration.HasHeaderRecord = false;
-            csv.Configuration.Delimiter = ",";
-
             MenuMeasurementStart.IsEnabled = true;
             MenuMeasurementStop.IsEnabled = false;
 
@@ -571,6 +566,11 @@ namespace Aspire
             measureThread.Start();
 #endif
             measurementRunning = true;
+
+            writer = File.CreateText("data.csv");
+            csv = new CsvWriter(writer);
+            csv.Configuration.HasHeaderRecord = false;
+            csv.Configuration.Delimiter = ",";
 
             MenuMeasurementStart.IsEnabled = false;
             MenuMeasurementStop.IsEnabled = true;
