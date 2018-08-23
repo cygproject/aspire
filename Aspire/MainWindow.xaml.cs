@@ -161,7 +161,7 @@ namespace Aspire
         /// </summary>
         private StreamWriter writer;
         private CsvWriter csv;
-
+        private int dataCount;
         #endregion
 
 
@@ -175,6 +175,7 @@ namespace Aspire
             config = SettingsData.Load();
             measurementInterval = Convert.ToDouble(config.MeasurementSettingsData.Interval);
             measurementRunning = false;
+            dataCount = 0;
 
             HorizontalScaleMin = Convert.ToInt16(config.DisplaySettingsData.MinX);
             HorizontalScaleMax = Convert.ToInt16(config.DisplaySettingsData.MaxX);
@@ -345,6 +346,7 @@ namespace Aspire
 
                             if (config.MeasurementSettingsData.LogEnabled == "true")
                             {
+                                csv.WriteField(dataCount++);
                                 csv.WriteField(val);
                                 csv.NextRecord();
                             }
@@ -637,6 +639,7 @@ namespace Aspire
             StartButton.IsEnabled = true;
             StopButton.IsEnabled = false;
 
+            dataCount = 0;
             writer.Close();
         }
 
