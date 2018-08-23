@@ -41,13 +41,25 @@ namespace Aspire
         /// <summary>
         /// 最大データ時間枠（秒） | Maximum data time frame (in seconds)
         /// </summary>
-        public int TimeFrame;
+        public double TimeFrame
+        {
+            get { return _timeFrame; }
+            set { _timeFrame = value; }
+        }
+
+        private double _timeFrame = 30.0;
 
         /// <summary>
         /// Time interval per data in msec
         /// (50.0, 100.0, 200.0, 500.0 or 1000.0 msec)
         /// </summary>
-        public double Interval;
+        public double Interval
+        {
+            get { return _interval; }
+            set { _interval = value; }
+        }
+
+        private double _interval = 100.0;
 
         /// <summary>
         /// 
