@@ -35,17 +35,16 @@ namespace Aspire
             };
 
             cmbMinY.ItemsSource = new string[] {
-                "-10",
                 "0",
+                "-5",
                 "-10",
             };
 
             cmbMaxY.ItemsSource = new string[] {
+                "5",
                 "10",
+                "15",
                 "20",
-                "30",
-                "40",
-                "50"
             };
 
         }
