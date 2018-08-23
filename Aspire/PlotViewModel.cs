@@ -120,10 +120,10 @@ namespace Aspire
 #endif
 #endif
 
+#if ENABLE_UPDATE_INDEX
                 if (TimeFrame <= Interval * Data.Count)
                 {
-                    Data.RemoveAt(0);
-                    
+                    Data.RemoveAt(0); 
                     UpdateIndex(Data);
 
                     Average.RemoveAt(0);
@@ -133,6 +133,7 @@ namespace Aspire
                     UpdateIndex(ZValues);
 #endif
                 }
+#endif
             }
 
         }
