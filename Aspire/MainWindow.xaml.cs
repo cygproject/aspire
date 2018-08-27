@@ -167,6 +167,7 @@ namespace Aspire
 
         private System.Timers.Timer measureTimer;
         private System.Timers.Timer stopTimer;
+        private Stopwatch watch;
 
         /// <summary>
         /// 
@@ -202,6 +203,8 @@ namespace Aspire
 #if NOT_USED
             plotViewModel.ActionOccurred += PlotViewModelActionOccurred;
 #endif
+            //Create an instance of StopWatch
+            watch = new Stopwatch();
 
             sensor = new ZX2_SF11();
 
@@ -338,6 +341,7 @@ namespace Aspire
             char[] delimiterChars = { ',' };
             string[] words = data.Split(delimiterChars);
             double val = 0.0f;
+            string elapsedTime;
 
             if (words[0].Equals("SR")) // Response OK
             {
@@ -370,9 +374,14 @@ namespace Aspire
                         { 
                             val = Convert.ToDouble(words[3]);
 
+                            watch.Stop();
+                            Debug.Print("Time elapsed: {0}.", watch.Elapsed);
+                            elapsedTime = string.Format("{0}", watch.Elapsed);
+
                             if (config.MeasurementSettingsData.LogEnabled == "true")
                             {
                                 csv.WriteField(dataCount++);
+                                csv.WriteField(elapsedTime);
                                 csv.WriteField(val);
                                 csv.NextRecord();
                             }
@@ -657,6 +666,9 @@ namespace Aspire
         /// </summary>
         private void StartMeasurement()
         {
+            watch.Reset();
+            watch.Start(); 
+
             string command;
             command = "SR,01," + sensor.MeasuredValue + Environment.NewLine;
             serialPort.Write(command);
