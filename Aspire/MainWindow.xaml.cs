@@ -218,10 +218,10 @@ namespace Aspire
 
         }
 
-        private void SetTimer()
+        private void SetStopTimer()
         {
-            // Create a 30 second timer 
-            stopTimer = new System.Timers.Timer(60000);
+            // Create a 30-second stop timer 
+            stopTimer = new System.Timers.Timer(30000);
             // Hook up the Elapsed event for the timer. 
             stopTimer.Elapsed += OnStopMeasurementEvent;
             stopTimer.AutoReset = false;
@@ -234,7 +234,7 @@ namespace Aspire
             stopTimer.Enabled = false;
             StopMeasurement();
 
-            MessageBox.Show("Measurement", "Measurement finished!");
+            MessageBoxResult result = MessageBox.Show("Measurement finished!", "Measurement", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>
@@ -347,27 +347,7 @@ namespace Aspire
             {
                 if (words[1].Equals("01")) // Channel 1
                 {
-                    if (words[2].Equals(sensor.BankSwitching))
-                    {
-                        Debug.Print(sensor.BankSwitching);
-                    }
-                    else if (words[2].Equals(sensor.LDOffStart))
-                    {
-                        Debug.Print(sensor.LDOffStart);
-                    }
-                    else if (words[2].Equals(sensor.LDOffEnd))
-                    {
-                        Debug.Print(sensor.LDOffEnd);
-                    }
-                    else if (words[2].Equals(sensor.Bank0HThreshold))
-                    {
-                        Debug.Print(sensor.Bank0HThreshold);
-                    }
-                    else if (words[2].Equals(sensor.Bank0LThreshold))
-                    {
-                        Debug.Print(sensor.Bank0LThreshold);
-                    }
-                    else if (words[2].Equals(sensor.MeasuredValue))
+                    if (words[2].Equals(sensor.MeasuredValue))
                     {
                         Debug.Print(sensor.MeasuredValue);
                         if (words[3] != "EEE.EEE") // Data is not invalid?
@@ -411,6 +391,26 @@ namespace Aspire
 #endif
                         }
 
+                    }
+                    else if (words[2].Equals(sensor.BankSwitching))
+                    {
+                        Debug.Print(sensor.BankSwitching);
+                    }
+                    else if (words[2].Equals(sensor.LDOffStart))
+                    {
+                        Debug.Print(sensor.LDOffStart);
+                    }
+                    else if (words[2].Equals(sensor.LDOffEnd))
+                    {
+                        Debug.Print(sensor.LDOffEnd);
+                    }
+                    else if (words[2].Equals(sensor.Bank0HThreshold))
+                    {
+                        Debug.Print(sensor.Bank0HThreshold);
+                    }
+                    else if (words[2].Equals(sensor.Bank0LThreshold))
+                    {
+                        Debug.Print(sensor.Bank0LThreshold);
                     }
                     else if (words[2].Equals(sensor.SoftwareVersion))
                     {
@@ -636,7 +636,7 @@ namespace Aspire
             measureTimer.Enabled = true;
 #endif
             // TODO: Timer starts here...
-            SetTimer();
+            SetStopTimer();
 
             measurementRunning = true;
         }
