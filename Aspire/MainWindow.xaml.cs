@@ -166,6 +166,7 @@ namespace Aspire
         #endregion
 
         private System.Timers.Timer measureTimer;
+        private System.Timers.Timer stopTimer;
 
         /// <summary>
         /// 
@@ -217,18 +218,20 @@ namespace Aspire
         private void SetTimer()
         {
             // Create a 30 second timer 
-            aTimer = new System.Timers.Timer(30000);
+            stopTimer = new System.Timers.Timer(60000);
             // Hook up the Elapsed event for the timer. 
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.AutoReset = false;
-            aTimer.Enabled = true;
+            stopTimer.Elapsed += OnStopMeasurementEvent;
+            stopTimer.AutoReset = false;
+            stopTimer.Enabled = true;
         }
 
         // Specify what you want to happen when the Elapsed event is raised.
-        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        private void OnStopMeasurementEvent(object source, ElapsedEventArgs e)
         {
-            aTimer.Enabled = false;
+            stopTimer.Enabled = false;
             StopMeasurement();
+
+            MessageBox.Show("Measurement", "Measurement finished!");
         }
 
         /// <summary>
