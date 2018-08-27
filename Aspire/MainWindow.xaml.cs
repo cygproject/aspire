@@ -165,7 +165,7 @@ namespace Aspire
         private int dataCount;
         #endregion
 
-        private static System.Timers.Timer aTimer;
+        private System.Timers.Timer measureTimer;
 
         /// <summary>
         /// 
@@ -189,7 +189,11 @@ namespace Aspire
             dispatchTimer.Interval = TimeSpan.FromMilliseconds(measurementInterval);
             dispatchTimer.Tick += TimerTick;
 #else
-            enableMeasurement = false;
+            // Create a measurement interval timer 
+            measureTimer = new System.Timers.Timer(measurementInterval);
+            // Hook up the Elapsed event for the timer. 
+            measureTimer.Elapsed += TimerTick;
+            measureTimer.AutoReset = true;
 #endif
             plotViewModel = DataContext as PlotViewModel;
             plotViewModel.TimeFrame = (HorizontalScaleMax - HorizontalScaleMin);
@@ -247,7 +251,7 @@ namespace Aspire
 #if USE_DISPATCH_TIMER
             dispatchTimer.Stop();
 #else
-            enableMeasurement = false;
+            measureTimer.Stop();
 #endif
             CloseSerialPort();
         }
@@ -379,13 +383,20 @@ namespace Aspire
                         }
                         else
                         {
+#if USE_DISPATCH_TIMER
                             // Stop dispatch timer
                             dispatchTimer.Stop();
+#else
+                            measureTimer.Enabled = false;
+#endif
 
                             MessageBoxResult result = MessageBox.Show("[Error-dark] The received light intensity is insufficient. Please use a suitable workpiece.", "E R R O R", MessageBoxButton.OK, MessageBoxImage.Error);
-
+#if USE_DISPATCH_TIMER
                             // Restart dispatch timer to continue data aquisition
                             dispatchTimer.Start();
+#else
+                            measureTimer.Enabled = true;
+#endif
                         }
 
                     }
@@ -401,8 +412,12 @@ namespace Aspire
             }
             else if (words[0].Equals("ER")) // Response Error
             {
+#if USE_DISPATCH_TIMER
                 // Stop dispatch timer
                 dispatchTimer.Stop();
+#else
+                measureTimer.Enabled = false;
+#endif
 
                 if (words[1].Equals("SR"))
                 {
@@ -475,9 +490,12 @@ namespace Aspire
                     Debug.Print("Unknown Error");
                     MessageBoxResult result = MessageBox.Show("Unknown error!", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
+#if USE_DISPATCH_TIMER
                 // Restart dispatch timer to continue data aquisition
                 dispatchTimer.Start();
+#else
+                measureTimer.Enabled = true;
+#endif
             }
             else
             {
@@ -560,13 +578,21 @@ namespace Aspire
 
             if(dialogResult == true && measurementRunning == true)
             {
+#if USE_DISPATCH_TIMER
                 dispatchTimer.Stop();
+#else
+                measureTimer.Enabled = false;
+#endif
 
                 var config = SettingsData.Load();
                 measurementInterval = Convert.ToInt16(config.MeasurementSettingsData.Interval);
+#if USE_DISPATCH_TIMER
                 dispatchTimer.Interval = TimeSpan.FromMilliseconds(measurementInterval);
-
                 dispatchTimer.Start();
+#else
+                measureTimer.Interval = measurementInterval;
+                measureTimer.Enabled = true;
+#endif
             }
         }
 
@@ -595,8 +621,7 @@ namespace Aspire
             dispatchTimer.Interval = TimeSpan.FromMilliseconds(measurementInterval);
             dispatchTimer.Start();
 #else
-            measureThread = new System.Threading.Thread(new System.Threading.ThreadStart(StartMeasurement));
-            measureThread.Start();
+            measureTimer.Enabled = true;
 #endif
             // TODO: Timer starts here...
             SetTimer();
@@ -631,17 +656,7 @@ namespace Aspire
         {
             string command;
             command = "SR,01," + sensor.MeasuredValue + Environment.NewLine;
-#if USE_DISPATCH_TIMER
             serialPort.Write(command);
-#else
-            enableMeasurement = true;
-
-            while (enableMeasurement)
-            {
-                serialPort.Write(command);
-                System.Threading.Thread.Sleep(measurementInterval);
-            }
-#endif
         }
 
         /// <summary>
@@ -652,7 +667,7 @@ namespace Aspire
 #if USE_DISPATCH_TIMER
             dispatchTimer.Stop();
 #else
-            enableMeasurement = false;
+            measureTimer.Enabled = false;
 #endif
             measurementRunning = false;
 
