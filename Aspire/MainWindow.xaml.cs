@@ -380,10 +380,10 @@ namespace Aspire
 
                             if (config.MeasurementSettingsData.LogEnabled == "true")
                             {
-                                csv.WriteField(dataCount++);
-                                csv.WriteField(elapsedTime);
-                                csv.WriteField(val);
-                                csv.NextRecord();
+                                csv?.WriteField(dataCount++);
+                                csv?.WriteField(elapsedTime);
+                                csv?.WriteField(val);
+                                csv?.NextRecord();
                             }
 #if ENABLE_DATA_PLOTTING
                             // Plot data (or save in CSV file)...
